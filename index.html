@@ -149,8 +149,18 @@ body::after {
   justify-self: end;
 }
 .theme-toggle:hover { border-color: var(--neon-cyan); }
-.theme-toggle__icon { font-family: var(--font-pixel); font-size: 0.45rem; color: var(--text-dim); transition: color 0.15s; }
-.theme-toggle:hover .theme-toggle__icon { color: var(--neon-cyan); }
+.theme-toggle__icon {
+  color: var(--text-dim);
+  filter: drop-shadow(0 0 2px currentColor);
+  transition: color 0.15s, filter 0.15s;
+  display: flex;
+}
+.theme-toggle:hover .theme-toggle__icon {
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 4px var(--neon-cyan));
+}
+[data-theme="light"] .theme-toggle__icon { filter: none; }
+[data-theme="light"] .theme-toggle:hover .theme-toggle__icon { filter: none; }
 
 /* === FILTER BAR === */
 .filter-bar {
@@ -699,7 +709,7 @@ body::after {
       <h1 class="header__title">THIRSTY THURSDAY</h1>
     </div>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-      <span class="theme-toggle__icon" id="theme-icon">DIM</span>
+      <span class="theme-toggle__icon" id="theme-icon"></span>
     </button>
   </div>
 </div>
@@ -1187,7 +1197,9 @@ const root = document.documentElement;
 function setTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('tt-theme', theme);
-  themeIcon.textContent = theme === 'light' ? 'DIM' : 'LIT';
+  const sunSVG = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2"/><rect x="3" y="3" width="2" height="2"/><rect x="11" y="3" width="2" height="2"/><rect x="5" y="5" width="6" height="6"/><rect x="1" y="7" width="2" height="2"/><rect x="13" y="7" width="2" height="2"/><rect x="3" y="11" width="2" height="2"/><rect x="11" y="11" width="2" height="2"/><rect x="7" y="13" width="2" height="2"/></svg>';
+  const moonSVG = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="4" height="2"/><rect x="5" y="3" width="2" height="2"/><rect x="3" y="5" width="2" height="2"/><rect x="3" y="7" width="2" height="2"/><rect x="3" y="9" width="2" height="2"/><rect x="5" y="11" width="2" height="2"/><rect x="7" y="13" width="4" height="2"/></svg>';
+  themeIcon.innerHTML = theme === 'light' ? moonSVG : sunSVG;
   if (map) {
     map.eachLayer(layer => { if (layer._url) map.removeLayer(layer); });
     L.tileLayer(getTileUrl(), { subdomains: 'abcd', maxZoom: 19 }).addTo(map);
