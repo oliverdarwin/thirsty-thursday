@@ -529,119 +529,32 @@ body::after {
 ::-webkit-scrollbar-thumb { background: var(--border); }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
-/* === EASTER EGG STYLES === */
+/* === EASTER EGG: Color cycle on title click === */
 .header__title { cursor: pointer; user-select: none; position: relative; }
 
-/* Mode indicator badge */
-.ee-mode-badge {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
+/* === PICK FOR ME button === */
+.pick-btn {
   font-family: var(--font-pixel);
   font-size: 0.5rem;
-  color: var(--neon-cyan);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 6px 10px;
-  z-index: 9999;
-  opacity: 0.85;
-  line-height: 1.6;
-  text-align: center;
-}
-
-/* EE1: Beer pour */
-.ee-beer-overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  pointer-events: none;
-  font-size: 80px;
-  opacity: 0;
-  animation: beerPour 1.6s ease-out forwards;
-}
-@keyframes beerPour {
-  0% { opacity: 0; transform: translate(-50%, -20%) scale(0.3); }
-  15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-  70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
-}
-.ee-beer-foam {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 20px;
-  background: #fff;
-  border-radius: 50%;
-  opacity: 0;
-  animation: foamBubble 1.6s ease-out 0.2s forwards;
-}
-@keyframes foamBubble {
-  0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
-  20% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
-  60% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) scale(0.3); }
-}
-
-/* EE3: Slot machine */
-.header__title.ee-slot-active {
-  animation: slotSpin 0.8s steps(8) forwards;
-}
-@keyframes slotSpin {
-  0%, 100% { filter: blur(0); }
-  10%, 80% { filter: blur(2px); }
-}
-
-/* EE4: CRT glitch */
-.ee-glitch-active {
-  animation: crtGlitch 0.5s linear forwards;
-}
-@keyframes crtGlitch {
-  0% { filter: none; }
-  10% { filter: hue-rotate(90deg); transform: translate(2px, -1px); }
-  20% { filter: hue-rotate(-90deg) saturate(2); transform: translate(-3px, 2px); clip-path: inset(20% 0 30% 0); }
-  30% { filter: hue-rotate(45deg); transform: translate(1px, 1px); clip-path: inset(40% 0 10% 0); }
-  40% { filter: invert(0.2) hue-rotate(180deg); transform: translate(-2px, -2px); clip-path: none; }
-  50% { filter: saturate(3) hue-rotate(-45deg); transform: translate(3px, 0); clip-path: inset(10% 0 60% 0); }
-  60% { filter: hue-rotate(90deg); transform: translate(0, 2px); clip-path: inset(50% 0 20% 0); }
-  70% { filter: none; transform: translate(-1px, -1px); clip-path: none; }
-  80% { filter: hue-rotate(-30deg) saturate(1.5); transform: translate(2px, 1px); }
-  90% { filter: none; transform: translate(0); }
-  100% { filter: none; transform: translate(0); clip-path: none; }
-}
-
-/* EE5: Lucky pick highlight */
-.card.ee-lucky-pick {
-  border-color: var(--neon-yellow) !important;
-  box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.3), inset 0 0 15px rgba(255, 230, 0, 0.05) !important;
-  animation: luckyPulse 1.5s ease-in-out 3;
-}
-@keyframes luckyPulse {
-  0%, 100% { box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.3); }
-  50% { box-shadow: 0 0 25px var(--neon-yellow), 0 0 50px rgba(255, 230, 0, 0.5); }
-}
-.ee-lucky-label {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-pixel);
-  font-size: 0.45rem;
-  color: var(--bg);
-  background: var(--neon-yellow);
-  padding: 2px 8px;
+  padding: 5px 12px;
+  background: transparent;
+  color: var(--neon-yellow);
+  border: 1px solid var(--neon-yellow);
   border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.15s;
   white-space: nowrap;
-  z-index: 10;
-  animation: luckyPulse 1.5s ease-in-out 3;
+  text-shadow: 0 0 6px rgba(255, 230, 0, 0.3);
+}
+.pick-btn:hover {
+  background: var(--neon-yellow);
+  color: var(--bg);
+  box-shadow: 0 0 12px rgba(255, 230, 0, 0.4);
+  text-shadow: none;
 }
 
-/* EE7: Roulette wheel */
+/* === Roulette wheel === */
 .ee-roulette-overlay {
   position: fixed;
   inset: 0;
@@ -770,17 +683,6 @@ body::after {
   animation: confettiFall linear forwards;
 }
 
-/* EE6: Pixel confetti */
-.ee-confetti-piece {
-  position: fixed;
-  top: -20px;
-  width: 8px;
-  height: 8px;
-  image-rendering: pixelated;
-  z-index: 10000;
-  pointer-events: none;
-  animation: confettiFall linear forwards;
-}
 @keyframes confettiFall {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   80% { opacity: 1; }
@@ -845,6 +747,7 @@ body::after {
           <option value="suburb">Sort: Suburb</option>
           <option value="name">Sort: Name</option>
         </select>
+        <button class="pick-btn" id="pick-btn">Pick for me</button>
       </div>
     </div>
   </div>
@@ -1318,326 +1221,189 @@ document.querySelectorAll('.view-btn').forEach(btn => {
 render();
 
 // ============================================================
-// EASTER EGG TESTER — cycles through 6 modes on title click
-// Remove this whole block once you've picked a favourite
+// EASTER EGG: Color cycle on title click
 // ============================================================
 (function() {
   const title = document.querySelector('.header__title');
-  const eggNames = [
-    '1/7: BEER POUR',
-    '2/7: COLOR CYCLE',
-    '3/7: SLOT MACHINE',
-    '4/7: CRT GLITCH',
-    '5/7: LUCKY PICK',
-    '6/7: PIXEL CONFETTI',
-    '7/7: ROULETTE WHEEL'
-  ];
-  let currentEgg = 0;
-
-  // Mode badge
-  const badge = document.createElement('div');
-  badge.className = 'ee-mode-badge';
-  badge.textContent = eggNames[0] + '\nclick title to test';
-  document.body.appendChild(badge);
-
-  // Cycle with right-click on badge
-  badge.addEventListener('click', () => {
-    currentEgg = (currentEgg + 1) % eggNames.length;
-    badge.textContent = eggNames[currentEgg] + '\nclick title to test';
-  });
-  badge.style.cursor = 'pointer';
-  badge.title = 'Click to switch mode';
-
-  title.addEventListener('click', (e) => {
-    e.stopPropagation();
-    switch (currentEgg) {
-      case 0: eggBeerPour(); break;
-      case 1: eggColorCycle(); break;
-      case 2: eggSlotMachine(); break;
-      case 3: eggCRTGlitch(); break;
-      case 4: eggLuckyPick(); break;
-      case 5: eggPixelConfetti(); break;
-      case 6: eggRoulette(); break;
-    }
-  });
-
-  // === EGG 1: Beer Pour ===
-  function eggBeerPour() {
-    const overlay = document.createElement('div');
-    overlay.className = 'ee-beer-overlay';
-    overlay.innerHTML = '<div class="ee-beer-foam"></div>\uD83C\uDF7A';
-    document.body.appendChild(overlay);
-    setTimeout(() => overlay.remove(), 1700);
-  }
-
-  // === EGG 2: Color Cycle ===
   const neonColors = [
     'var(--neon-cyan)', 'var(--neon-pink)', 'var(--neon-green)',
     'var(--neon-yellow)', 'var(--neon-orange)', 'var(--neon-purple)'
   ];
   let colorIndex = 0;
-  function eggColorCycle() {
+
+  title.addEventListener('click', (e) => {
+    e.stopPropagation();
     colorIndex = (colorIndex + 1) % neonColors.length;
     const color = neonColors[colorIndex];
     title.style.color = color;
     title.style.textShadow = `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
-    // Also shift the pixel banner
     const banner = document.querySelector('.pixel-banner');
     if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
-  }
+  });
+})();
 
-  // === EGG 3: Slot Machine ===
-  function eggSlotMachine() {
-    const original = title.textContent;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&';
-    let iterations = 0;
-    const maxIterations = 12;
-    title.classList.add('ee-slot-active');
-    const interval = setInterval(() => {
-      title.textContent = original.split('').map((ch, i) => {
-        if (ch === ' ') return ' ';
-        if (iterations > maxIterations - (original.length - i) * 0.5) return original[i];
-        return chars[Math.floor(Math.random() * chars.length)];
-      }).join('');
-      iterations++;
-      if (iterations >= maxIterations) {
-        clearInterval(interval);
-        title.textContent = original;
-        title.classList.remove('ee-slot-active');
-      }
-    }, 60);
-  }
+// ============================================================
+// PICK FOR ME: Roulette wheel
+// ============================================================
+document.getElementById('pick-btn').addEventListener('click', function() {
+  const filtered = filterVenues();
+  const sorted = sortVenues(filtered);
+  const pubData = sorted.map(v => ({ name: v.name, suburb: v.suburb, specials: v.specials }));
+  const segments = pubData.length;
+  if (segments === 0) return;
+  const segAngle = (2 * Math.PI) / segments;
 
-  // === EGG 4: CRT Glitch ===
-  function eggCRTGlitch() {
-    document.body.classList.add('ee-glitch-active');
-    setTimeout(() => document.body.classList.remove('ee-glitch-active'), 500);
-  }
+  const palette = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
 
-  // === EGG 5: Lucky Pick ===
-  function eggLuckyPick() {
-    // Remove previous lucky pick
-    document.querySelectorAll('.ee-lucky-pick').forEach(el => el.classList.remove('ee-lucky-pick'));
-    document.querySelectorAll('.ee-lucky-label').forEach(el => el.remove());
+  // Build overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'ee-roulette-overlay';
+  const box = document.createElement('div');
+  box.className = 'ee-roulette-box';
+  const canvas = document.createElement('canvas');
+  canvas.className = 'ee-roulette-canvas';
+  canvas.width = 1120;
+  canvas.height = 1120;
+  const pointer = document.createElement('div');
+  pointer.className = 'ee-roulette-pointer';
+  box.appendChild(pointer);
+  box.appendChild(canvas);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
 
-    const cards = document.querySelectorAll('.card');
-    if (cards.length === 0) return;
-    const pick = cards[Math.floor(Math.random() * cards.length)];
-    pick.classList.add('ee-lucky-pick');
+  const ctx = canvas.getContext('2d');
+  const cx = 560, cy = 560, r = 520;
 
-    const label = document.createElement('div');
-    label.className = 'ee-lucky-label';
-    label.textContent = 'LUCKY PICK';
-    pick.style.position = 'relative';
-    pick.appendChild(label);
-
-    pick.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Clean up after animation
-    setTimeout(() => {
-      pick.classList.remove('ee-lucky-pick');
-      label.remove();
-    }, 5000);
-  }
-
-  // === EGG 6: Pixel Confetti ===
-  function eggPixelConfetti() {
-    const confettiColors = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
-    const pieces = 40;
-    for (let i = 0; i < pieces; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'ee-confetti-piece';
-      piece.style.left = Math.random() * 100 + 'vw';
-      piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      piece.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-      piece.style.animationDelay = (Math.random() * 0.5) + 's';
-      piece.style.width = (6 + Math.random() * 6) + 'px';
-      piece.style.height = piece.style.width;
-      document.body.appendChild(piece);
-      setTimeout(() => piece.remove(), 4000);
-    }
-  }
-
-  // === EGG 7: Roulette Wheel ===
-  function eggRoulette() {
-    const cards = document.querySelectorAll('.card');
-    if (cards.length === 0) return;
-
-    // Get visible pub data from filtered VENUES
-    const filtered = filterVenues();
-    const sorted = sortVenues(filtered);
-    const pubData = sorted.map(v => ({ name: v.name, suburb: v.suburb, specials: v.specials }));
-    const segments = pubData.length;
-    if (segments === 0) return;
-    const segAngle = (2 * Math.PI) / segments;
-
-    // Neon palette for segments
-    const palette = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
-
-    // Build overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'ee-roulette-overlay';
-    const box = document.createElement('div');
-    box.className = 'ee-roulette-box';
-    const canvas = document.createElement('canvas');
-    canvas.className = 'ee-roulette-canvas';
-    canvas.width = 1120;
-    canvas.height = 1120;
-    const pointer = document.createElement('div');
-    pointer.className = 'ee-roulette-pointer';
-    box.appendChild(pointer);
-    box.appendChild(canvas);
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-
-    const ctx = canvas.getContext('2d');
-    const cx = 560, cy = 560, r = 520;
-
-    function drawWheel(rotation) {
-      ctx.clearRect(0, 0, 1120, 1120);
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(rotation);
-      for (let i = 0; i < segments; i++) {
-        const start = i * segAngle;
-        const end = start + segAngle;
-        // Segment fill
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.arc(0, 0, r, start, end);
-        ctx.closePath();
-        ctx.fillStyle = palette[i % palette.length];
-        ctx.globalAlpha = 0.3;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.strokeStyle = palette[i % palette.length];
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        // Label
-        ctx.save();
-        ctx.rotate(start + segAngle / 2);
-        ctx.textAlign = 'right';
-        ctx.fillStyle = '#fff';
-        ctx.font = `bold ${Math.min(26, 480 / segments)}px 'IBM Plex Mono', monospace`;
-        const name = pubData[i].name.length > 18 ? pubData[i].name.slice(0, 17) + '..' : pubData[i].name;
-        ctx.fillText(name, r - 20, 6);
-        ctx.restore();
-      }
-      ctx.restore();
-      // Center circle
+  function drawWheel(rotation) {
+    ctx.clearRect(0, 0, 1120, 1120);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotation);
+    for (let i = 0; i < segments; i++) {
+      const start = i * segAngle;
+      const end = start + segAngle;
       ctx.beginPath();
-      ctx.arc(cx, cy, 36, 0, 2 * Math.PI);
-      ctx.fillStyle = '#0a0a16';
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, r, start, end);
+      ctx.closePath();
+      ctx.fillStyle = palette[i % palette.length];
+      ctx.globalAlpha = 0.3;
       ctx.fill();
-      ctx.strokeStyle = '#00f0ff';
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = palette[i % palette.length];
       ctx.lineWidth = 2;
       ctx.stroke();
+      ctx.save();
+      ctx.rotate(start + segAngle / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#fff';
+      ctx.font = `bold ${Math.min(26, 480 / segments)}px 'IBM Plex Mono', monospace`;
+      const name = pubData[i].name.length > 18 ? pubData[i].name.slice(0, 17) + '..' : pubData[i].name;
+      ctx.fillText(name, r - 20, 6);
+      ctx.restore();
     }
-
-    // Spin animation — easing deceleration
-    const winIndex = Math.floor(Math.random() * segments);
-    const targetAngle = -Math.PI / 2 - (winIndex * segAngle + segAngle / 2);
-    const totalSpin = targetAngle - 10 * Math.PI; // 5 full extra rotations
-    const spinDuration = 5000;
-    const startTime = performance.now();
-
-    function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
-
-    function animate(now) {
-      const elapsed = now - startTime;
-      const t = Math.min(elapsed / spinDuration, 1);
-      const eased = easeOutQuart(t);
-      const currentRotation = totalSpin * eased;
-      drawWheel(currentRotation);
-
-      if (t < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        // Brief pause then show winner celebration
-        setTimeout(() => {
-          overlay.remove();
-          showWinnerScreen(pubData[winIndex]);
-        }, 600);
-      }
-    }
-
-    drawWheel(0);
-    requestAnimationFrame(animate);
-
-    // Click overlay background to dismiss early
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.remove();
-    });
+    ctx.restore();
+    ctx.beginPath();
+    ctx.arc(cx, cy, 36, 0, 2 * Math.PI);
+    ctx.fillStyle = '#0a0a16';
+    ctx.fill();
+    ctx.strokeStyle = '#00f0ff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
 
-  function showWinnerScreen(venue) {
-    const screen = document.createElement('div');
-    screen.className = 'ee-winner-screen';
+  const winIndex = Math.floor(Math.random() * segments);
+  const targetAngle = -Math.PI / 2 - (winIndex * segAngle + segAngle / 2);
+  const totalSpin = targetAngle - 10 * Math.PI;
+  const spinDuration = 5000;
+  const startTime = performance.now();
 
-    // Confetti burst
-    const confettiColors = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
-    for (let i = 0; i < 50; i++) {
-      const c = document.createElement('div');
-      c.className = 'ee-winner-confetti';
-      c.style.left = Math.random() * 100 + 'vw';
-      c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      c.style.animationDuration = (2 + Math.random() * 2.5) + 's';
-      c.style.animationDelay = (Math.random() * 0.8) + 's';
-      c.style.width = (6 + Math.random() * 8) + 'px';
-      c.style.height = c.style.width;
-      screen.appendChild(c);
+  function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function animate(now) {
+    const elapsed = now - startTime;
+    const t = Math.min(elapsed / spinDuration, 1);
+    const eased = easeOutQuart(t);
+    drawWheel(totalSpin * eased);
+
+    if (t < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      setTimeout(() => {
+        overlay.remove();
+        showWinnerScreen(pubData[winIndex]);
+      }, 600);
     }
-
-    // Crown
-    const crown = document.createElement('div');
-    crown.className = 'ee-winner-crown';
-    crown.textContent = '\uD83C\uDFC6';
-    screen.appendChild(crown);
-
-    // "WINNER" label
-    const label = document.createElement('div');
-    label.className = 'ee-winner-label';
-    label.textContent = 'TONIGHT YOU\'RE GOING TO';
-    screen.appendChild(label);
-
-    // Venue name
-    const name = document.createElement('div');
-    name.className = 'ee-winner-name';
-    name.textContent = venue.name;
-    screen.appendChild(name);
-
-    // Suburb
-    const suburb = document.createElement('div');
-    suburb.className = 'ee-winner-suburb';
-    suburb.textContent = venue.suburb;
-    screen.appendChild(suburb);
-
-    // Specials
-    const specials = document.createElement('div');
-    specials.className = 'ee-winner-specials';
-    venue.specials.forEach(s => {
-      const tag = document.createElement('div');
-      tag.className = 'ee-winner-special';
-      tag.textContent = '$' + s.price + ' ' + s.item;
-      specials.appendChild(tag);
-    });
-    screen.appendChild(specials);
-
-    // Dismiss hint
-    const dismiss = document.createElement('div');
-    dismiss.className = 'ee-winner-dismiss';
-    dismiss.textContent = 'tap anywhere to close';
-    screen.appendChild(dismiss);
-
-    document.body.appendChild(screen);
-
-    screen.addEventListener('click', () => {
-      screen.style.opacity = '0';
-      screen.style.transition = 'opacity 0.3s';
-      setTimeout(() => screen.remove(), 300);
-    });
   }
-})();
+
+  drawWheel(0);
+  requestAnimationFrame(animate);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+});
+
+function showWinnerScreen(venue) {
+  const screen = document.createElement('div');
+  screen.className = 'ee-winner-screen';
+
+  const confettiColors = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
+  for (let i = 0; i < 50; i++) {
+    const c = document.createElement('div');
+    c.className = 'ee-winner-confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    c.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+    c.style.animationDelay = (Math.random() * 0.8) + 's';
+    c.style.width = (6 + Math.random() * 8) + 'px';
+    c.style.height = c.style.width;
+    screen.appendChild(c);
+  }
+
+  const crown = document.createElement('div');
+  crown.className = 'ee-winner-crown';
+  crown.textContent = '\uD83C\uDFC6';
+  screen.appendChild(crown);
+
+  const label = document.createElement('div');
+  label.className = 'ee-winner-label';
+  label.textContent = 'TONIGHT YOU\'RE GOING TO';
+  screen.appendChild(label);
+
+  const name = document.createElement('div');
+  name.className = 'ee-winner-name';
+  name.textContent = venue.name;
+  screen.appendChild(name);
+
+  const suburb = document.createElement('div');
+  suburb.className = 'ee-winner-suburb';
+  suburb.textContent = venue.suburb;
+  screen.appendChild(suburb);
+
+  const specials = document.createElement('div');
+  specials.className = 'ee-winner-specials';
+  venue.specials.forEach(s => {
+    const tag = document.createElement('div');
+    tag.className = 'ee-winner-special';
+    tag.textContent = '$' + s.price + ' ' + s.item;
+    specials.appendChild(tag);
+  });
+  screen.appendChild(specials);
+
+  const dismiss = document.createElement('div');
+  dismiss.className = 'ee-winner-dismiss';
+  dismiss.textContent = 'tap anywhere to close';
+  screen.appendChild(dismiss);
+
+  document.body.appendChild(screen);
+
+  screen.addEventListener('click', () => {
+    screen.style.opacity = '0';
+    screen.style.transition = 'opacity 0.3s';
+    setTimeout(() => screen.remove(), 300);
+  });
+}
 </script>
 <script data-goatcounter="https://thirsty-thursday.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
