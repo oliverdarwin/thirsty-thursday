@@ -499,6 +499,9 @@ body::after {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .header { padding: 1.5rem 0.75rem 0.8rem; }
+  .header__title {
+    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px rgba(0, 240, 255, 0.2);
+  }
   .filter-bar { padding: 0.4rem 0.75rem; }
   .filter-section { margin-bottom: 0.2rem; }
   .filter-label { font-size: 0.36rem; margin-bottom: 0.15rem; }
@@ -521,7 +524,10 @@ body::after {
   .card-grid { grid-template-columns: 1fr; }
   .card:hover { background: var(--bg-card); }
   .counter-bar { flex-direction: column; gap: 8px; align-items: flex-start; }
-  .controls { width: 100%; justify-content: space-between; }
+  .controls { width: 100%; justify-content: space-between; gap: 5px; }
+  .controls .sort-select { font-size: 0.58rem; padding: 3px 4px; }
+  .controls .pick-btn { font-size: 0.4rem; padding: 4px 8px; }
+  .controls .view-btn { font-size: 0.58rem; padding: 3px 8px; }
   body::after { opacity: 0; }
 }
 ::-webkit-scrollbar { width: 5px; height: 4px; }
@@ -738,9 +744,9 @@ body::after {
           <button class="view-btn" data-view="map">Map</button>
         </div>
         <select class="sort-select" id="sort-select">
-          <option value="price">Sort: Price</option>
-          <option value="suburb">Sort: Suburb</option>
-          <option value="name">Sort: Name</option>
+          <option value="price">Price</option>
+          <option value="suburb">Suburb</option>
+          <option value="name">Name</option>
         </select>
         <button class="pick-btn" id="pick-btn">Pick for me</button>
       </div>
