@@ -56,7 +56,7 @@
 }
 [data-theme="light"] body::after { display: none; }
 [data-theme="light"] .header__title { text-shadow: none; }
-[data-theme="light"] .card::before { box-shadow: none; }
+[data-theme="light"] .card { box-shadow: none; }
 [data-theme="light"] #pub-map { background: #eee; }
 [data-theme="light"] .leaflet-control-zoom a { background: #fff !important; color: #333 !important; border-color: var(--border) !important; }
 [data-theme="light"] .leaflet-popup-content-wrapper { background: #fff !important; border-color: var(--border) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important; color: var(--text) !important; }
@@ -297,29 +297,33 @@ body::after {
 
 .card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 3px;
   padding: 1rem 1.1rem;
   position: relative;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   animation: cardIn 0.2s ease backwards;
   cursor: pointer;
 }
-.card::before {
-  content: ''; position: absolute;
-  top: 10px; bottom: 10px; left: 0; width: 2px;
-}
 
-.card[data-suburb="Darlinghurst"]::before { background: var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); }
-.card[data-suburb="Paddington"]::before { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
-.card[data-suburb="Woollahra"]::before { background: var(--neon-purple); box-shadow: 0 0 6px var(--neon-purple); }
-.card[data-suburb="Redfern"]::before { background: var(--neon-orange); box-shadow: 0 0 6px var(--neon-orange); }
-.card[data-suburb="Surry Hills"]::before { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green); }
-.card[data-suburb="Woolloomooloo"]::before { background: var(--neon-teal); box-shadow: 0 0 6px var(--neon-teal); }
-.card[data-suburb="Bondi Junction"]::before { background: var(--neon-yellow); box-shadow: 0 0 6px var(--neon-yellow); }
-.card[data-suburb="Bondi Beach"]::before { background: var(--neon-red); box-shadow: 0 0 6px var(--neon-red); }
+.card[data-suburb="Darlinghurst"] { border-color: var(--neon-pink); box-shadow: 0 0 8px rgba(255,45,149,0.3), inset 0 0 8px rgba(255,45,149,0.06); }
+.card[data-suburb="Paddington"] { border-color: var(--neon-cyan); box-shadow: 0 0 8px rgba(0,240,255,0.3), inset 0 0 8px rgba(0,240,255,0.06); }
+.card[data-suburb="Woollahra"] { border-color: var(--neon-purple); box-shadow: 0 0 8px rgba(184,41,255,0.3), inset 0 0 8px rgba(184,41,255,0.06); }
+.card[data-suburb="Redfern"] { border-color: var(--neon-orange); box-shadow: 0 0 8px rgba(255,102,0,0.3), inset 0 0 8px rgba(255,102,0,0.06); }
+.card[data-suburb="Surry Hills"] { border-color: var(--neon-green); box-shadow: 0 0 8px rgba(57,255,20,0.3), inset 0 0 8px rgba(57,255,20,0.06); }
+.card[data-suburb="Woolloomooloo"] { border-color: var(--neon-teal); box-shadow: 0 0 8px rgba(20,255,180,0.3), inset 0 0 8px rgba(20,255,180,0.06); }
+.card[data-suburb="Bondi Junction"] { border-color: var(--neon-yellow); box-shadow: 0 0 8px rgba(255,230,0,0.3), inset 0 0 8px rgba(255,230,0,0.06); }
+.card[data-suburb="Bondi Beach"] { border-color: var(--neon-red); box-shadow: 0 0 8px rgba(255,68,68,0.3), inset 0 0 8px rgba(255,68,68,0.06); }
 
-.card:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
+.card:hover { background: var(--bg-card-hover); }
+.card[data-suburb="Darlinghurst"]:hover { box-shadow: 0 0 14px rgba(255,45,149,0.5), 0 0 30px rgba(255,45,149,0.15), inset 0 0 12px rgba(255,45,149,0.08); }
+.card[data-suburb="Paddington"]:hover { box-shadow: 0 0 14px rgba(0,240,255,0.5), 0 0 30px rgba(0,240,255,0.15), inset 0 0 12px rgba(0,240,255,0.08); }
+.card[data-suburb="Woollahra"]:hover { box-shadow: 0 0 14px rgba(184,41,255,0.5), 0 0 30px rgba(184,41,255,0.15), inset 0 0 12px rgba(184,41,255,0.08); }
+.card[data-suburb="Redfern"]:hover { box-shadow: 0 0 14px rgba(255,102,0,0.5), 0 0 30px rgba(255,102,0,0.15), inset 0 0 12px rgba(255,102,0,0.08); }
+.card[data-suburb="Surry Hills"]:hover { box-shadow: 0 0 14px rgba(57,255,20,0.5), 0 0 30px rgba(57,255,20,0.15), inset 0 0 12px rgba(57,255,20,0.08); }
+.card[data-suburb="Woolloomooloo"]:hover { box-shadow: 0 0 14px rgba(20,255,180,0.5), 0 0 30px rgba(20,255,180,0.15), inset 0 0 12px rgba(20,255,180,0.08); }
+.card[data-suburb="Bondi Junction"]:hover { box-shadow: 0 0 14px rgba(255,230,0,0.5), 0 0 30px rgba(255,230,0,0.15), inset 0 0 12px rgba(255,230,0,0.08); }
+.card[data-suburb="Bondi Beach"]:hover { box-shadow: 0 0 14px rgba(255,68,68,0.5), 0 0 30px rgba(255,68,68,0.15), inset 0 0 12px rgba(255,68,68,0.08); }
 
 .card__top-row {
   display: flex; justify-content: space-between; align-items: flex-start;
@@ -400,6 +404,7 @@ body::after {
 .map-container {
   max-width: 1440px; margin: 0 auto;
   padding: 0.5rem 1rem 2rem; display: none;
+  position: relative; z-index: 1;
 }
 .map-container.visible { display: block; }
 #pub-map {
@@ -495,8 +500,7 @@ body::after {
 @media (max-width: 768px) {
   .header { padding: 1.5rem 0.75rem 0.8rem; }
   .filter-bar { padding: 0.5rem 0.75rem; }
-  .filter-buttons { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
-  .filter-buttons::-webkit-scrollbar { display: none; }
+  .filter-buttons { flex-wrap: wrap; }
   .filter-btn { flex-shrink: 0; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
   .grid-container, .map-container { padding: 0.5rem 0.75rem 1.5rem; }
