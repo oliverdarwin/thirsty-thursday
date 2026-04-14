@@ -55,7 +55,7 @@
   --border-hover: #D0CCC6;
 }
 [data-theme="light"] body::after { display: none; }
-[data-theme="light"] .header__title { text-shadow: none; }
+[data-theme="light"] .header__title { text-shadow: none; --title-glow: var(--neon-cyan); }
 [data-theme="light"] .card { box-shadow: none; }
 [data-theme="light"] #pub-map { background: #eee; }
 [data-theme="light"] .leaflet-control-zoom a { background: #fff !important; color: #333 !important; border-color: var(--border) !important; }
@@ -151,7 +151,7 @@ body::after {
   justify-self: end;
 }
 .theme-toggle:hover { border-color: var(--neon-cyan); }
-.theme-toggle__icon { font-size: 1rem; color: var(--text-dim); transition: color 0.15s; }
+.theme-toggle__icon { font-family: var(--font-pixel); font-size: 0.45rem; color: var(--text-dim); transition: color 0.15s; }
 .theme-toggle:hover .theme-toggle__icon { color: var(--neon-cyan); }
 
 /* === FILTER BAR === */
@@ -169,7 +169,7 @@ body::after {
 .filter-label {
   font-family: var(--font-pixel);
   font-size: 0.42rem;
-  color: #fff;
+  color: var(--text-bright);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: 0.3rem;
@@ -701,7 +701,7 @@ body::after {
       <h1 class="header__title">THIRSTY THURSDAY</h1>
     </div>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-      <span class="theme-toggle__icon" id="theme-icon">&#9788;</span>
+      <span class="theme-toggle__icon" id="theme-icon">DIM</span>
     </button>
   </div>
 </div>
@@ -1189,7 +1189,7 @@ const root = document.documentElement;
 function setTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('tt-theme', theme);
-  themeIcon.textContent = theme === 'light' ? '\u263D' : '\u2604';
+  themeIcon.textContent = theme === 'light' ? 'DIM' : 'LIT';
   if (map) {
     map.eachLayer(layer => { if (layer._url) map.removeLayer(layer); });
     L.tileLayer(getTileUrl(), { subdomains: 'abcd', maxZoom: 19 }).addTo(map);
