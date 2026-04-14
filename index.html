@@ -500,7 +500,7 @@ body::after {
 @media (max-width: 768px) {
   .header { padding: 1.5rem 0.75rem 0.8rem; }
   .header__title {
-    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px rgba(0, 240, 255, 0.2);
+    text-shadow: 0 0 0 var(--neon-cyan), 0 0 8px rgba(0, 240, 255, 0.3);
   }
   .filter-bar { padding: 0.4rem 0.75rem; }
   .filter-section { margin-bottom: 0.2rem; }
@@ -1239,7 +1239,7 @@ render();
     title.style.color = color;
     const mobile = window.matchMedia('(max-width: 768px)').matches;
     title.style.textShadow = mobile
-      ? `0 0 5px ${color}, 0 0 10px ${color}`
+      ? `0 0 0 ${color}, 0 0 8px ${color}`
       : `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
     const banner = document.querySelector('.pixel-banner');
     if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
