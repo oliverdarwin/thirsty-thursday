@@ -528,6 +528,135 @@ body::after {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* === EASTER EGG STYLES === */
+.header__title { cursor: pointer; user-select: none; position: relative; }
+
+/* Mode indicator badge */
+.ee-mode-badge {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--neon-cyan);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 6px 10px;
+  z-index: 9999;
+  opacity: 0.85;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* EE1: Beer pour */
+.ee-beer-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  pointer-events: none;
+  font-size: 80px;
+  opacity: 0;
+  animation: beerPour 1.6s ease-out forwards;
+}
+@keyframes beerPour {
+  0% { opacity: 0; transform: translate(-50%, -20%) scale(0.3); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
+}
+.ee-beer-foam {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: foamBubble 1.6s ease-out 0.2s forwards;
+}
+@keyframes foamBubble {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  20% { opacity: 0.8; transform: translateX(-50%) scale(1.2); }
+  60% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) scale(0.3); }
+}
+
+/* EE3: Slot machine */
+.header__title.ee-slot-active {
+  animation: slotSpin 0.8s steps(8) forwards;
+}
+@keyframes slotSpin {
+  0%, 100% { filter: blur(0); }
+  10%, 80% { filter: blur(2px); }
+}
+
+/* EE4: CRT glitch */
+.ee-glitch-active {
+  animation: crtGlitch 0.5s linear forwards;
+}
+@keyframes crtGlitch {
+  0% { filter: none; }
+  10% { filter: hue-rotate(90deg); transform: translate(2px, -1px); }
+  20% { filter: hue-rotate(-90deg) saturate(2); transform: translate(-3px, 2px); clip-path: inset(20% 0 30% 0); }
+  30% { filter: hue-rotate(45deg); transform: translate(1px, 1px); clip-path: inset(40% 0 10% 0); }
+  40% { filter: invert(0.2) hue-rotate(180deg); transform: translate(-2px, -2px); clip-path: none; }
+  50% { filter: saturate(3) hue-rotate(-45deg); transform: translate(3px, 0); clip-path: inset(10% 0 60% 0); }
+  60% { filter: hue-rotate(90deg); transform: translate(0, 2px); clip-path: inset(50% 0 20% 0); }
+  70% { filter: none; transform: translate(-1px, -1px); clip-path: none; }
+  80% { filter: hue-rotate(-30deg) saturate(1.5); transform: translate(2px, 1px); }
+  90% { filter: none; transform: translate(0); }
+  100% { filter: none; transform: translate(0); clip-path: none; }
+}
+
+/* EE5: Lucky pick highlight */
+.card.ee-lucky-pick {
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.3), inset 0 0 15px rgba(255, 230, 0, 0.05) !important;
+  animation: luckyPulse 1.5s ease-in-out 3;
+}
+@keyframes luckyPulse {
+  0%, 100% { box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.3); }
+  50% { box-shadow: 0 0 25px var(--neon-yellow), 0 0 50px rgba(255, 230, 0, 0.5); }
+}
+.ee-lucky-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--bg);
+  background: var(--neon-yellow);
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+  z-index: 10;
+  animation: luckyPulse 1.5s ease-in-out 3;
+}
+
+/* EE6: Pixel confetti */
+.ee-confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 8px;
+  height: 8px;
+  image-rendering: pixelated;
+  z-index: 10000;
+  pointer-events: none;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
 </style>
 </head>
 <body>
@@ -1058,6 +1187,146 @@ document.querySelectorAll('.view-btn').forEach(btn => {
 });
 
 render();
+
+// ============================================================
+// EASTER EGG TESTER — cycles through 6 modes on title click
+// Remove this whole block once you've picked a favourite
+// ============================================================
+(function() {
+  const title = document.querySelector('.header__title');
+  const eggNames = [
+    '1/6: BEER POUR',
+    '2/6: COLOR CYCLE',
+    '3/6: SLOT MACHINE',
+    '4/6: CRT GLITCH',
+    '5/6: LUCKY PICK',
+    '6/6: PIXEL CONFETTI'
+  ];
+  let currentEgg = 0;
+
+  // Mode badge
+  const badge = document.createElement('div');
+  badge.className = 'ee-mode-badge';
+  badge.textContent = eggNames[0] + '\nclick title to test';
+  document.body.appendChild(badge);
+
+  // Cycle with right-click on badge
+  badge.addEventListener('click', () => {
+    currentEgg = (currentEgg + 1) % eggNames.length;
+    badge.textContent = eggNames[currentEgg] + '\nclick title to test';
+  });
+  badge.style.cursor = 'pointer';
+  badge.title = 'Click to switch mode';
+
+  title.addEventListener('click', (e) => {
+    e.stopPropagation();
+    switch (currentEgg) {
+      case 0: eggBeerPour(); break;
+      case 1: eggColorCycle(); break;
+      case 2: eggSlotMachine(); break;
+      case 3: eggCRTGlitch(); break;
+      case 4: eggLuckyPick(); break;
+      case 5: eggPixelConfetti(); break;
+    }
+  });
+
+  // === EGG 1: Beer Pour ===
+  function eggBeerPour() {
+    const overlay = document.createElement('div');
+    overlay.className = 'ee-beer-overlay';
+    overlay.innerHTML = '<div class="ee-beer-foam"></div>\uD83C\uDF7A';
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.remove(), 1700);
+  }
+
+  // === EGG 2: Color Cycle ===
+  const neonColors = [
+    'var(--neon-cyan)', 'var(--neon-pink)', 'var(--neon-green)',
+    'var(--neon-yellow)', 'var(--neon-orange)', 'var(--neon-purple)'
+  ];
+  let colorIndex = 0;
+  function eggColorCycle() {
+    colorIndex = (colorIndex + 1) % neonColors.length;
+    const color = neonColors[colorIndex];
+    title.style.color = color;
+    title.style.textShadow = `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
+    // Also shift the pixel banner
+    const banner = document.querySelector('.pixel-banner');
+    if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
+  }
+
+  // === EGG 3: Slot Machine ===
+  function eggSlotMachine() {
+    const original = title.textContent;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&';
+    let iterations = 0;
+    const maxIterations = 12;
+    title.classList.add('ee-slot-active');
+    const interval = setInterval(() => {
+      title.textContent = original.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (iterations > maxIterations - (original.length - i) * 0.5) return original[i];
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join('');
+      iterations++;
+      if (iterations >= maxIterations) {
+        clearInterval(interval);
+        title.textContent = original;
+        title.classList.remove('ee-slot-active');
+      }
+    }, 60);
+  }
+
+  // === EGG 4: CRT Glitch ===
+  function eggCRTGlitch() {
+    document.body.classList.add('ee-glitch-active');
+    setTimeout(() => document.body.classList.remove('ee-glitch-active'), 500);
+  }
+
+  // === EGG 5: Lucky Pick ===
+  function eggLuckyPick() {
+    // Remove previous lucky pick
+    document.querySelectorAll('.ee-lucky-pick').forEach(el => el.classList.remove('ee-lucky-pick'));
+    document.querySelectorAll('.ee-lucky-label').forEach(el => el.remove());
+
+    const cards = document.querySelectorAll('.card');
+    if (cards.length === 0) return;
+    const pick = cards[Math.floor(Math.random() * cards.length)];
+    pick.classList.add('ee-lucky-pick');
+
+    const label = document.createElement('div');
+    label.className = 'ee-lucky-label';
+    label.textContent = 'LUCKY PICK';
+    pick.style.position = 'relative';
+    pick.appendChild(label);
+
+    pick.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Clean up after animation
+    setTimeout(() => {
+      pick.classList.remove('ee-lucky-pick');
+      label.remove();
+    }, 5000);
+  }
+
+  // === EGG 6: Pixel Confetti ===
+  function eggPixelConfetti() {
+    const confettiColors = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
+    const pieces = 40;
+    for (let i = 0; i < pieces; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'ee-confetti-piece';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      piece.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      piece.style.animationDelay = (Math.random() * 0.5) + 's';
+      piece.style.width = (6 + Math.random() * 6) + 'px';
+      piece.style.height = piece.style.width;
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 4000);
+    }
+  }
+})();
 </script>
 <script data-goatcounter="https://thirsty-thursday.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
