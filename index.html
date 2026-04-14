@@ -744,9 +744,9 @@ body::after {
           <button class="view-btn" data-view="map">Map</button>
         </div>
         <select class="sort-select" id="sort-select">
-          <option value="price">Price</option>
-          <option value="suburb">Suburb</option>
-          <option value="name">Name</option>
+          <option value="price">Sort: Price</option>
+          <option value="suburb">Sort: Suburb</option>
+          <option value="name">Sort: Name</option>
         </select>
         <button class="pick-btn" id="pick-btn">Pick for me</button>
       </div>
@@ -1237,7 +1237,10 @@ render();
     colorIndex = (colorIndex + 1) % neonColors.length;
     const color = neonColors[colorIndex];
     title.style.color = color;
-    title.style.textShadow = `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
+    const mobile = window.matchMedia('(max-width: 768px)').matches;
+    title.style.textShadow = mobile
+      ? `0 0 5px ${color}, 0 0 10px ${color}`
+      : `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
     const banner = document.querySelector('.pixel-banner');
     if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
   });
