@@ -109,7 +109,7 @@ body::after {
 /* Scrolling pixel banner */
 @keyframes pixelScroll {
   from { background-position: 0 0; }
-  to { background-position: -144px 0; }
+  to { background-position: -128px 0; }
 }
 
 .pixel-banner {
@@ -128,14 +128,12 @@ body::after {
     transparent 76px, transparent 80px,
     var(--neon-purple) 80px, var(--neon-purple) 92px,
     transparent 92px, transparent 96px,
-    var(--neon-cyan) 96px, var(--neon-cyan) 108px,
+    var(--neon-red) 96px, var(--neon-red) 108px,
     transparent 108px, transparent 112px,
-    var(--neon-pink) 112px, var(--neon-pink) 124px,
-    transparent 124px, transparent 128px,
-    var(--neon-green) 128px, var(--neon-green) 140px,
-    transparent 140px, transparent 144px
+    var(--neon-teal) 112px, var(--neon-teal) 124px,
+    transparent 124px, transparent 128px
   );
-  background-size: 144px 4px;
+  background-size: 128px 4px;
   animation: pixelScroll 4s linear infinite;
   box-shadow: 0 0 8px rgba(0, 240, 255, 0.15);
 }
@@ -1237,8 +1235,6 @@ render();
     e.stopPropagation();
     colorIndex = (colorIndex + 1) % neonColors.length;
     title.style.setProperty('--title-glow', neonColors[colorIndex]);
-    const banner = document.querySelector('.pixel-banner');
-    if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
   });
 })();
 
