@@ -1,0 +1,1134 @@
+[
+  {
+    "pub_name": "The Beresford",
+    "suburb": "Surry Hills",
+    "address": "354 Bourke Street, Surry Hills",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Schnitzel or upgrade to Parmi",
+        "price": "$21 schnitzel / $25 parmi",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Burger special",
+        "price": "$22",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Rump steak with fries, rocket & red wine jus",
+        "price": "$25",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7.50 schooners & pints of house beer, $7.50 house spirits & wine, $15 Aperol spritz, $18 cocktails",
+        "price": "From $7.50",
+        "time": "Tuesday–Sunday 5pm–7pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://merivale.com/whatson/daily-specials-at-the-beresford/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-beresford-surry-hills",
+    "notes": null
+  },
+  {
+    "pub_name": "Forrester's",
+    "suburb": "Surry Hills",
+    "address": "Surry Hills",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "$18 Steak Night — steak with purchase of any drink",
+        "price": "$18",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Trivia Night (hosted upstairs)",
+        "price": null,
+        "time": "7:30pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7.50 taps & wines, $12 spritz",
+        "price": "$7.50",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Live music (local artists and bands)",
+        "price": null,
+        "time": "Friday & Saturday",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://forresters.com.au/whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/forresters-surry-hills",
+    "notes": null
+  },
+  {
+    "pub_name": "Crown Hotel",
+    "suburb": "Surry Hills",
+    "address": "587 Crown St, Surry Hills",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Schnitty Monday — chicken schnitzel with chips or salad and gravy",
+        "price": "$16",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Fish & Chips Tuesday — with salad, lemon and tartare",
+        "price": "$16",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Rump Steak — with chips, salad and gravy",
+        "price": "$20",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Chicken or Beef Burger with chips",
+        "price": "$18",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Arvo Happy Hour & Burgers",
+        "price": null,
+        "time": "2pm–4pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Guinness Pints",
+        "price": null,
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $6 local schooners & wines, $8 local pints, $12 spritz",
+        "price": "$6",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.crownhotel.com.au/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/crown-hotel-surry-hills",
+    "notes": null
+  },
+  {
+    "pub_name": "The Trinity",
+    "suburb": "Surry Hills",
+    "address": "505 Crown Street, Surry Hills",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Schnitzel with chips, salad and sauce + $10 Guinness pints all day",
+        "price": "$20 schnitzel",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Burger special",
+        "price": "$20",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Steak Frites",
+        "price": "$20",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Late Night Cocktail Happy Hour (Tilly May's upstairs)",
+        "price": "$14",
+        "time": "Tuesday–Friday 7pm–9pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast",
+        "price": null,
+        "time": "From 12pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://trinitybar.com.au/trinity-whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-trinity-surry-hills",
+    "notes": null
+  },
+  {
+    "pub_name": "Dove and Olive",
+    "suburb": "Surry Hills",
+    "address": "Surry Hills (near Central Station)",
+    "specials": [],
+    "source_url": "https://doveandolive.com.au/whats-on/",
+    "edc_url": null,
+    "notes": "Specials page not rendered (JavaScript-heavy site). Voted Best Pub Food 2025 by Australian Good Food Guide. Check website directly for current specials."
+  },
+  {
+    "pub_name": "Kinselas Hotel",
+    "suburb": "Darlinghurst",
+    "address": "383 Bourke St, Darlinghurst",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Pub Classics All Day — schnitzel, burger, rump steak, chicken caesar, fish & chips",
+        "price": "$15",
+        "time": "7 days, 12pm–9pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Beer, Wine & Spirits happy hour",
+        "price": "$6",
+        "time": "7 days, 7pm–9pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.kinselas.com.au/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/kinselas-hotel-darlinghurst",
+    "notes": null
+  },
+  {
+    "pub_name": "Courthouse Hotel",
+    "suburb": "Darlinghurst",
+    "address": "189 Oxford Street, Darlinghurst",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Pub Classics All Day — fish & chips, schnitzel, beef burger, falafel burger, caesar salad, steak",
+        "price": "$15",
+        "time": "7 days, 12pm–9pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Beer, Wine & Spirits happy hour",
+        "price": "$6",
+        "time": "7 days, 5pm–7pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.courthousehotel.com.au/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/courthouse-hotel-darlinghurst",
+    "notes": null
+  },
+  {
+    "pub_name": "East Village Hotel",
+    "suburb": "Darlinghurst",
+    "address": "234 Palmer St, Darlinghurst",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "All Day Every Day — $20 rump steaks, $15 schnitzels (classic/eggplant/Mexican/Hawaiian), $14 pints of Guinness, $20 jugs of Young Henrys Newtowner",
+        "price": "From $14",
+        "time": "All day, 7 days",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Monday",
+        "item_description": "2-for-1 Bowls",
+        "price": null,
+        "time": "All day Monday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Taco Tuesday",
+        "price": null,
+        "time": "All day Tuesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Pub Trivia — pen-and-paper trivia, jackpot cash prize, $10 cocktails for trivia players",
+        "price": "Free entry; $10 cocktails",
+        "time": "From 6:30pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour Mon–Fri",
+        "price": null,
+        "time": "Monday–Friday (details on website)",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "$10 cocktails (advertised as ongoing special)",
+        "price": "$10",
+        "time": "Ongoing",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Roast & Toast Sunday",
+        "price": null,
+        "time": "Sunday",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://eastvillagesydney.com.au/weekly-specials/",
+    "edc_url": null,
+    "notes": "Some day-specific specials (Thursday $1 wings, Friday $15 specials) confirmed from weekly specials page images but text not fully scraped — check website for current week. IMAGE_ONLY for some day tiles."
+  },
+  {
+    "pub_name": "SJ's Hotel (Sydney Junction Hotel)",
+    "suburb": "Darlinghurst",
+    "address": "Darlinghurst",
+    "specials": [
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Schnitty with two sides and sauce",
+        "price": "$18",
+        "time": "Tuesday nights",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.facebook.com/sjshotel/",
+    "edc_url": null,
+    "notes": "Full specials only visible on Facebook/Instagram. Tuesday $18 schnitty confirmed from Facebook post. Mid-week specials menu mentioned but IMAGE_ONLY on social media."
+  },
+  {
+    "pub_name": "Woolpack Hotel",
+    "suburb": "Redfern",
+    "address": "229 Chalmers St, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Trivia Night (Triviality Quiz)",
+        "price": null,
+        "time": "7pm–10pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Locals Night — Joker Poker, Badge Draw, meat & veggie raffles",
+        "price": null,
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Live House DJ",
+        "price": null,
+        "time": "From 7pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast",
+        "price": "$28",
+        "time": "11:30am–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Beer of the Month — schooner upgrade to pint for $1 extra",
+        "price": "$1 upgrade",
+        "time": "Ongoing",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.woolpack.com.au/whats-on",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/woolpack-hotel-redfern",
+    "notes": null
+  },
+  {
+    "pub_name": "The Redfern",
+    "suburb": "Redfern",
+    "address": "106 George Street, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Steak Night — steak with chips and house salad",
+        "price": "$20",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Curry of the Week",
+        "price": "$20",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Trivia Night hosted by Jackie Daniels",
+        "price": null,
+        "time": "7:30pm–10pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Burger & Beer Combo",
+        "price": "$25",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.theredfern.com.au/whats-on",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-redfern",
+    "notes": "Also has live music Fridays from 7pm and 'Jag the Joker' every Wednesday."
+  },
+  {
+    "pub_name": "Tudor Hotel",
+    "suburb": "Redfern",
+    "address": "90 Pitt St, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "250g Rump with chips, salad & gravy",
+        "price": "$19",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Chicken Schnitzel with chips, salad & gravy",
+        "price": "$18",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Fish & Chips with salad",
+        "price": "$18",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Any Burger & Chips",
+        "price": "$16",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast",
+        "price": null,
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $6 house beers & wines",
+        "price": "$6",
+        "time": "7 days, 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://tudorhotel.com.au/whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/tudor-hotel-redfern",
+    "notes": null
+  },
+  {
+    "pub_name": "Bar Cleveland",
+    "suburb": "Redfern",
+    "address": "433 Cleveland St, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Burger Special with fries",
+        "price": "$17",
+        "time": "12pm–4pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Burger Special with fries",
+        "price": "$17",
+        "time": "12pm–4pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "House Crumbed Chicken Schnitzel with sauce, salad & fries",
+        "price": "$17",
+        "time": "12pm–4pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "House Crumbed Chicken Schnitzel with sauce, salad & fries",
+        "price": "$17",
+        "time": "12pm–4pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Rump Steak with salad, fries & sauce",
+        "price": "$19",
+        "time": "Lunch",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Weekly Trivia Night",
+        "price": null,
+        "time": "Weekly Wednesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Monday",
+        "item_description": "Free Pool (pool table)",
+        "price": "Free",
+        "time": "5pm–10pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Pool Competition Night — prizes including pub cash",
+        "price": null,
+        "time": "From 7:30pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.barcleveland.com.au/whats-on",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/bar-cleveland-redfern",
+    "notes": null
+  },
+  {
+    "pub_name": "The Bat & Ball Hotel",
+    "suburb": "Redfern",
+    "address": "495 Cleveland St, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Lasagne Tuesday (including vegan option)",
+        "price": "$17",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Parmy Wednesday — schnitty with chips and salad",
+        "price": "$17",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Steak Night",
+        "price": "$20",
+        "time": "All day",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Seafood Baskets + $1 Oysters (until sold out)",
+        "price": "$1 oysters",
+        "time": "Saturday",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.batandballhotel.com/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-bat-ball-hotel-redfern",
+    "notes": null
+  },
+  {
+    "pub_name": "The Noble Hops",
+    "suburb": "Redfern",
+    "address": "125 Redfern Street, Redfern",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Hoppy Hour — $8 schooners, house wine & spirits",
+        "price": "$8",
+        "time": "Monday–Saturday 4pm–6pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Old Fashioned Wednesday — $15 Old Fashioneds all night",
+        "price": "$15",
+        "time": "4pm–11pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Negroni Thursday — $15 Negronis all night",
+        "price": "$15",
+        "time": "4pm–11pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Aperol Spritz Arvo",
+        "price": null,
+        "time": "1pm–4pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.thenoblehops.com/upcomingevents",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-noble-hops-redfern",
+    "notes": "Craft beer bar with cocktail focus rather than food specials."
+  },
+  {
+    "pub_name": "Paddo Inn",
+    "suburb": "Paddington",
+    "address": "338 Oxford St, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Tune INN — live acoustic music",
+        "price": null,
+        "time": "From 6pm every Wednesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "reWINEd Thursdays — DJ playing timeless classics (Prince, Whitney, Fleetwood Mac, INXS)",
+        "price": null,
+        "time": "Thursday nights",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Back to Footy promo — $10 pints of Carlton for every game (March 2026)",
+        "price": "$10",
+        "time": "All March 2026",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://paddoinn.com.au/whats-on-at-paddo",
+    "edc_url": null,
+    "notes": "Happy Hour currently not running (sign-up page only). Paddo Inn is Solotel-owned. Primary focus on events/entertainment over food specials. Check website for updated food deals."
+  },
+  {
+    "pub_name": "Royal Hotel Paddington",
+    "suburb": "Paddington",
+    "address": "237 Glenmore Road, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Steak Frites — steak with café de Paris butter and jus",
+        "price": "$20",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Schnitzel Night — schnitty or upgrade to parmi",
+        "price": "$18 schnitzel / $20 parmi",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast",
+        "price": null,
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Hospo Sundays — $6.50 schooners & spirits, $15 Spritzes (industry worker special)",
+        "price": "$6.50",
+        "time": "2pm–10pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7 house beer, wine & bubbles",
+        "price": "$7",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://royalhotel.com.au/whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/royal-hotel-paddington",
+    "notes": null
+  },
+  {
+    "pub_name": "The Bellevue Hotel",
+    "suburb": "Paddington",
+    "address": "159 Hargrave St, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Pizza Slab Night — rotating weekly pizza slab special",
+        "price": "$20",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Steak Night — steak frites with hand-cut chips and choice of sauce (Gravy/Peppercorn/Mushroom)",
+        "price": "$20",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Burger Night",
+        "price": "$22",
+        "time": "From 5pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Steak Night — same as Wednesday",
+        "price": "$20",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Spirits Saturday",
+        "price": null,
+        "time": "6pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Sessions",
+        "price": null,
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — house wines, beers & spirits",
+        "price": null,
+        "time": "Monday–Friday 5pm–7pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://bellevuehotel.com.au/whats-on-paddington/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-bellevue-hotel-paddington",
+    "notes": null
+  },
+  {
+    "pub_name": "Four in Hand Hotel",
+    "suburb": "Paddington",
+    "address": "105 Sutherland St, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Burger & Fries Monday",
+        "price": "$22",
+        "time": "12:30pm–8:30pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Hanger Steak Night",
+        "price": "$22",
+        "time": "All day Tuesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Schnitty — chicken schnitzel or eggplant parmigiana; or chicken parmigiana",
+        "price": "$22 schnitzel or eggplant / $25 chicken parmi",
+        "time": "All day Wednesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Belgian Style Mussels",
+        "price": "$22",
+        "time": "All day Thursday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Wine Happy Hour",
+        "price": null,
+        "time": "3pm–6pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Cocktail Happy Hour",
+        "price": null,
+        "time": "9pm–close",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast",
+        "price": null,
+        "time": "All day Sunday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Schooners & Wines — house wines & selected schooners",
+        "price": "$6",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://fourinhand.com.au/menus/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/four-in-hand-hotel-paddington",
+    "notes": null
+  },
+  {
+    "pub_name": "Imperial Hotel Paddington",
+    "suburb": "Paddington",
+    "address": "252 Oxford St, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Weekday Lunch Specials — Burger, Pasta, Fish & Chips, Chicken Schnitzel; or 300g Rump Steak",
+        "price": "$15 (steak $20)",
+        "time": "Monday–Friday 12pm–3pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Steak Night — 300g rump with chips, salad & gravy",
+        "price": "$20",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Burgers + Free Trivia Night — burger & beer then free trivia from 7pm",
+        "price": "$20",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Chicken Schnitzel",
+        "price": "$15",
+        "time": "4pm–6pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Roast & Red — roast + red wine",
+        "price": null,
+        "time": "12pm–9pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.imperialhotelpaddington.com.au/menu",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/imperial-hotel-paddington",
+    "notes": null
+  },
+  {
+    "pub_name": "The London Hotel",
+    "suburb": "Paddington",
+    "address": "85 Underwood St, Paddington",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Monday Schnitzel — schnitty (upgrade to parmi +$5)",
+        "price": "$18",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Burger & Schooner — Wagyu beef / Southern fried chicken / grilled chicken / steak sandwich (all with fries) + schooner of London Lager",
+        "price": "$21",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Pizza Special All Day",
+        "price": "$18",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Steak Night",
+        "price": null,
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Fish n' Chips Friday",
+        "price": null,
+        "time": "All day Friday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Spritz + Sunday Roast",
+        "price": null,
+        "time": "Sunday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $8 house wine, beer & spirits; $12 for 2 cocktails",
+        "price": "$8",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Happy Hour Cocktails",
+        "price": null,
+        "time": "4pm–6pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.hotellondon.com.au/whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-london-hotel-paddington",
+    "notes": null
+  },
+  {
+    "pub_name": "Woollahra Hotel",
+    "suburb": "Woollahra",
+    "address": "116 Queen St, Woollahra",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Mixed Dumpling Monday — pork xiao long bao, mushroom & chestnut, prawn har gow",
+        "price": "$20",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Schnitty & Chardy — Katsu chicken schnitzel + 20% off all Chardonnay",
+        "price": "$20",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Steak Night + Trivia — steak with chips & slaw, $15 off every bottle of wine, trivia from 7pm by Mike Jury",
+        "price": "$25 steak",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Beef or Chicken Burger with chips + pints for schooner prices on Hahn and Stone & Wood",
+        "price": "$20",
+        "time": "All day Friday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Margarita Friday — $15 margaritas all day",
+        "price": "$15",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "$15 Fever Tree Spritz cocktails (Limoncello/Cherry Blossom/Dark & Stormy) all day + live music upstairs from 2pm",
+        "price": "$15",
+        "time": "All day Sunday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7 schooners & wines",
+        "price": "$7",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.woollahrahotel.com.au/whats-on/",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/woollahra-hotel",
+    "notes": null
+  },
+  {
+    "pub_name": "Lord Dudley Hotel",
+    "suburb": "Woollahra",
+    "address": "236 Jersey Rd, Woollahra",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Schnitzel & Fries",
+        "price": "$15",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Steak Tuesday — $18 rump steaks",
+        "price": "$18",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Burger Wednesday — beef, fish or falafel burgers with fries",
+        "price": "$15",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Thursday",
+        "item_description": "Pie Night + Trivia — pot pies + trivia from 7pm",
+        "price": "$18",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Fish & Chips Friday",
+        "price": "$15",
+        "time": "12pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Sunday",
+        "item_description": "Sunday Roast with all the trimmings + Bloody Mary special + live jazz from 4pm",
+        "price": "$28",
+        "time": "12pm–9pm (until sold out)",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.lorddudley.com.au/whats-on",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/lord-dudley-hotel-woollahra",
+    "notes": null
+  },
+  {
+    "pub_name": "The Light Brigade",
+    "suburb": "Woollahra",
+    "address": "Oxford St & Jersey Rd, Woollahra",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Chicken Schnitzel — all day",
+        "price": "$20",
+        "time": "All day Monday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "$20 Burgers (excluding double beef & bacon) — all day",
+        "price": "$20",
+        "time": "All day Tuesday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Friday",
+        "item_description": "Tacos & Margarita — two tacos + margarita; or nachos & margy",
+        "price": "$25 tacos / $30 nachos",
+        "time": "All day Friday",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Saturday",
+        "item_description": "Cocktail Night — select cocktails",
+        "price": "$15",
+        "time": "9pm–11pm",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://lightbrigade.com.au/whats-on/daily-specials",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-light-brigade-woollahra",
+    "notes": null
+  },
+  {
+    "pub_name": "Hotel Centennial",
+    "suburb": "Woollahra",
+    "address": "Victoria Avenue, Woollahra",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7.50 schooners & $10 pints of house beer, $7.50 house spirits & wine, $15 Aperol spritz, $18 cocktails",
+        "price": "From $7.50",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://merivale.com/venues/hotelcentennial",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/hotel-centennial-woollahra",
+    "notes": "Merivale-owned. Only one listed special — may have more not listed on EatDrinkCheap. Check Merivale website for full events calendar."
+  },
+  {
+    "pub_name": "The Golden Sheaf",
+    "suburb": "Double Bay",
+    "address": "429 New South Head Rd, Double Bay",
+    "specials": [
+      {
+        "day_of_week": "Monday",
+        "item_description": "Steak Night Double Bay — 250g grain-fed rump, fries, green oak salad & gravy",
+        "price": "$25",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Tuesday",
+        "item_description": "Burger & Beer + Trivia Night — burger & beer happy hour, trivia from 7:30pm",
+        "price": "$25",
+        "time": "4pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Wednesday",
+        "item_description": "Schnitty & Sips — chicken schnitzel + schooner; or parmi + pint",
+        "price": "$25 (schnitzel + schooner) / $30 (parmi + pint)",
+        "time": "5pm–9pm",
+        "is_always_on": false
+      },
+      {
+        "day_of_week": "Always On",
+        "item_description": "Happy hour — $7 house schooners & wine",
+        "price": "$7",
+        "time": "Monday–Friday 4pm–6pm",
+        "is_always_on": true
+      }
+    ],
+    "source_url": "https://www.thegoldensheaf.com.au/whats-on",
+    "edc_url": "https://eatdrinkcheap.com.au/sydney/the-golden-sheaf-double-bay",
+    "notes": "Solotel-owned. Previously listed as having schnitzel + Wednesdays on EDC search preview — confirmed above."
+  },
+  {
+    "pub_name": "Royal Oak Hotel Double Bay",
+    "suburb": "Double Bay",
+    "address": "Double Bay",
+    "specials": [
+      {
+        "day_of_week": "Always On",
+        "item_description": "Weekly Food Specials (rotating) — e.g. Tandoori Salmon Salad, Spiced Slow Cooked Brisket, Sicilian Chicken Penne Pasta, Prosciutto Wrapped Pork Tenderloin",
+        "price": "$29–$30",
+        "time": "All week",
+        "is_always_on": false
+      }
+    ],
+    "source_url": "https://www.royaloakdoublebay.com.au/weeklyspecials",
+    "edc_url": null,
+    "notes": "Specials rotate weekly (not fixed day specials like pub nights). Menu-style rotating specials rather than schnitzel/trivia nights. Phil's Rooftop bar on site."
+  },
+  {
+    "pub_name": "Bayside Bistro & Bar",
+    "suburb": "Double Bay",
+    "address": "Shop 3/33 Cross Street, Double Bay",
+    "specials": [],
+    "source_url": "https://baysidebistro.com.au/special-offers/",
+    "edc_url": null,
+    "notes": "IHG (Intercontinental) hotel restaurant. Special Offers page exists but no current weekly specials text found — may be event/seasonal focused. Closed Monday & Tuesday. IMAGE_ONLY or no current pub-style specials."
+  }
+]
