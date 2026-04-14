@@ -645,7 +645,7 @@ body::after {
 .ee-roulette-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.92);
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -655,42 +655,120 @@ body::after {
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .ee-roulette-box {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: min(85vw, 85vh, 560px);
+  height: min(85vw, 85vh, 560px);
 }
 .ee-roulette-canvas {
-  width: 320px;
-  height: 320px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: 3px solid var(--neon-cyan);
-  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px rgba(0, 240, 255, 0.3);
 }
 .ee-roulette-pointer {
   position: absolute;
-  top: -18px;
+  top: -22px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 24px solid var(--neon-yellow);
-  filter: drop-shadow(0 0 6px var(--neon-yellow));
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 28px solid var(--neon-yellow);
+  filter: drop-shadow(0 0 8px var(--neon-yellow));
   z-index: 2;
 }
-.ee-roulette-label {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-pixel);
-  font-size: 0.5rem;
-  color: var(--neon-yellow);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s;
+
+/* Winner celebration screen */
+.ee-winner-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.94);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  animation: winnerFadeIn 0.4s ease-out;
+  cursor: pointer;
 }
-.ee-roulette-label.visible { opacity: 1; }
+@keyframes winnerFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.ee-winner-crown {
+  font-size: clamp(40px, 10vw, 72px);
+  animation: winnerBounce 0.6s ease-out;
+}
+@keyframes winnerBounce {
+  0% { transform: scale(0) rotate(-20deg); }
+  50% { transform: scale(1.3) rotate(5deg); }
+  70% { transform: scale(0.9) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.ee-winner-label {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.55rem, 2vw, 0.8rem);
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.4);
+  letter-spacing: 0.15em;
+  animation: winnerPulse 1.5s ease-in-out infinite;
+}
+@keyframes winnerPulse {
+  0%, 100% { text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px rgba(255, 230, 0, 0.4); }
+  50% { text-shadow: 0 0 20px var(--neon-yellow), 0 0 50px rgba(255, 230, 0, 0.6); }
+}
+.ee-winner-name {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.8rem, 3.5vw, 1.5rem);
+  color: #fff;
+  text-shadow: 0 0 12px var(--neon-cyan), 0 0 30px rgba(0, 240, 255, 0.4);
+  text-align: center;
+  max-width: 90vw;
+  animation: winnerSlideUp 0.5s ease-out 0.15s both;
+}
+@keyframes winnerSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ee-winner-suburb {
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 2vw, 1rem);
+  color: var(--neon-pink);
+  animation: winnerSlideUp 0.5s ease-out 0.25s both;
+}
+.ee-winner-specials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 0.4rem;
+  animation: winnerSlideUp 0.5s ease-out 0.35s both;
+}
+.ee-winner-special {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.45rem, 1.5vw, 0.6rem);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  border-radius: 3px;
+  padding: 6px 12px;
+  text-shadow: 0 0 6px var(--neon-green);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.2);
+}
+.ee-winner-dismiss {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 1.5rem;
+  animation: winnerSlideUp 0.5s ease-out 0.6s both;
+}
+.ee-winner-confetti {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  z-index: 10002;
+  pointer-events: none;
+  animation: confettiFall linear forwards;
+}
 
 /* EE6: Pixel confetti */
 .ee-confetti-piece {
@@ -1385,9 +1463,12 @@ render();
     const cards = document.querySelectorAll('.card');
     if (cards.length === 0) return;
 
-    // Get visible pub names from cards
-    const pubs = Array.from(cards).map(c => c.querySelector('.card__pub-name').textContent);
-    const segments = pubs.length;
+    // Get visible pub data from filtered VENUES
+    const filtered = filterVenues();
+    const sorted = sortVenues(filtered);
+    const pubData = sorted.map(v => ({ name: v.name, suburb: v.suburb, specials: v.specials }));
+    const segments = pubData.length;
+    if (segments === 0) return;
     const segAngle = (2 * Math.PI) / segments;
 
     // Neon palette for segments
@@ -1400,23 +1481,20 @@ render();
     box.className = 'ee-roulette-box';
     const canvas = document.createElement('canvas');
     canvas.className = 'ee-roulette-canvas';
-    canvas.width = 640;
-    canvas.height = 640;
+    canvas.width = 1120;
+    canvas.height = 1120;
     const pointer = document.createElement('div');
     pointer.className = 'ee-roulette-pointer';
-    const label = document.createElement('div');
-    label.className = 'ee-roulette-label';
     box.appendChild(pointer);
     box.appendChild(canvas);
-    box.appendChild(label);
     overlay.appendChild(box);
     document.body.appendChild(overlay);
 
     const ctx = canvas.getContext('2d');
-    const cx = 320, cy = 320, r = 300;
+    const cx = 560, cy = 560, r = 520;
 
     function drawWheel(rotation) {
-      ctx.clearRect(0, 0, 640, 640);
+      ctx.clearRect(0, 0, 1120, 1120);
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(rotation);
@@ -1429,93 +1507,134 @@ render();
         ctx.arc(0, 0, r, start, end);
         ctx.closePath();
         ctx.fillStyle = palette[i % palette.length];
-        ctx.globalAlpha = 0.25;
+        ctx.globalAlpha = 0.3;
         ctx.fill();
         ctx.globalAlpha = 1;
         ctx.strokeStyle = palette[i % palette.length];
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 2;
         ctx.stroke();
         // Label
         ctx.save();
         ctx.rotate(start + segAngle / 2);
         ctx.textAlign = 'right';
         ctx.fillStyle = '#fff';
-        ctx.font = `bold ${Math.min(20, 280 / segments)}px 'IBM Plex Mono', monospace`;
-        const name = pubs[i].length > 16 ? pubs[i].slice(0, 15) + '..' : pubs[i];
-        ctx.fillText(name, r - 14, 5);
+        ctx.font = `bold ${Math.min(26, 480 / segments)}px 'IBM Plex Mono', monospace`;
+        const name = pubData[i].name.length > 18 ? pubData[i].name.slice(0, 17) + '..' : pubData[i].name;
+        ctx.fillText(name, r - 20, 6);
         ctx.restore();
       }
       ctx.restore();
       // Center circle
       ctx.beginPath();
-      ctx.arc(cx, cy, 28, 0, 2 * Math.PI);
+      ctx.arc(cx, cy, 36, 0, 2 * Math.PI);
       ctx.fillStyle = '#0a0a16';
       ctx.fill();
-      ctx.strokeStyle = 'var(--neon-cyan)';
+      ctx.strokeStyle = '#00f0ff';
       ctx.lineWidth = 2;
       ctx.stroke();
     }
 
     // Spin animation — easing deceleration
     const winIndex = Math.floor(Math.random() * segments);
-    // Pointer is at top (270deg / -PI/2). We want the winning segment center under the pointer.
-    // Segment i center is at i*segAngle + segAngle/2 from 0 (3 o'clock).
-    // Pointer is at -PI/2 from 0. So we need rotation such that:
-    // rotation + winIndex*segAngle + segAngle/2 = -PI/2 (mod 2PI)
     const targetAngle = -Math.PI / 2 - (winIndex * segAngle + segAngle / 2);
-    const totalSpin = targetAngle - 6 * Math.PI; // 3 full extra rotations
-    const spinDuration = 3000;
+    const totalSpin = targetAngle - 10 * Math.PI; // 5 full extra rotations
+    const spinDuration = 5000;
     const startTime = performance.now();
 
-    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+    function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 
     function animate(now) {
       const elapsed = now - startTime;
       const t = Math.min(elapsed / spinDuration, 1);
-      const eased = easeOutCubic(t);
+      const eased = easeOutQuart(t);
       const currentRotation = totalSpin * eased;
       drawWheel(currentRotation);
 
       if (t < 1) {
         requestAnimationFrame(animate);
       } else {
-        // Show winner
-        label.textContent = pubs[winIndex];
-        label.classList.add('visible');
-        // After a beat, close and scroll to winner
+        // Brief pause then show winner celebration
         setTimeout(() => {
-          overlay.style.opacity = '0';
-          overlay.style.transition = 'opacity 0.3s';
-          setTimeout(() => {
-            overlay.remove();
-            // Highlight the winning card
-            document.querySelectorAll('.ee-lucky-pick').forEach(el => el.classList.remove('ee-lucky-pick'));
-            document.querySelectorAll('.ee-lucky-label').forEach(el => el.remove());
-            const winCard = cards[winIndex];
-            winCard.classList.add('ee-lucky-pick');
-            const luckyLabel = document.createElement('div');
-            luckyLabel.className = 'ee-lucky-label';
-            luckyLabel.textContent = 'LUCKY PICK';
-            winCard.style.position = 'relative';
-            winCard.appendChild(luckyLabel);
-            winCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-              winCard.classList.remove('ee-lucky-pick');
-              luckyLabel.remove();
-            }, 5000);
-          }, 300);
-        }, 1200);
+          overlay.remove();
+          showWinnerScreen(pubData[winIndex]);
+        }, 600);
       }
     }
 
     drawWheel(0);
     requestAnimationFrame(animate);
 
-    // Click overlay to dismiss early
+    // Click overlay background to dismiss early
     overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.remove();
-      }
+      if (e.target === overlay) overlay.remove();
+    });
+  }
+
+  function showWinnerScreen(venue) {
+    const screen = document.createElement('div');
+    screen.className = 'ee-winner-screen';
+
+    // Confetti burst
+    const confettiColors = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
+    for (let i = 0; i < 50; i++) {
+      const c = document.createElement('div');
+      c.className = 'ee-winner-confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      c.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+      c.style.animationDelay = (Math.random() * 0.8) + 's';
+      c.style.width = (6 + Math.random() * 8) + 'px';
+      c.style.height = c.style.width;
+      screen.appendChild(c);
+    }
+
+    // Crown
+    const crown = document.createElement('div');
+    crown.className = 'ee-winner-crown';
+    crown.textContent = '\uD83C\uDFC6';
+    screen.appendChild(crown);
+
+    // "WINNER" label
+    const label = document.createElement('div');
+    label.className = 'ee-winner-label';
+    label.textContent = 'TONIGHT YOU\'RE GOING TO';
+    screen.appendChild(label);
+
+    // Venue name
+    const name = document.createElement('div');
+    name.className = 'ee-winner-name';
+    name.textContent = venue.name;
+    screen.appendChild(name);
+
+    // Suburb
+    const suburb = document.createElement('div');
+    suburb.className = 'ee-winner-suburb';
+    suburb.textContent = venue.suburb;
+    screen.appendChild(suburb);
+
+    // Specials
+    const specials = document.createElement('div');
+    specials.className = 'ee-winner-specials';
+    venue.specials.forEach(s => {
+      const tag = document.createElement('div');
+      tag.className = 'ee-winner-special';
+      tag.textContent = '$' + s.price + ' ' + s.item;
+      specials.appendChild(tag);
+    });
+    screen.appendChild(specials);
+
+    // Dismiss hint
+    const dismiss = document.createElement('div');
+    dismiss.className = 'ee-winner-dismiss';
+    dismiss.textContent = 'tap anywhere to close';
+    screen.appendChild(dismiss);
+
+    document.body.appendChild(screen);
+
+    screen.addEventListener('click', () => {
+      screen.style.opacity = '0';
+      screen.style.transition = 'opacity 0.3s';
+      setTimeout(() => screen.remove(), 300);
     });
   }
 })();
