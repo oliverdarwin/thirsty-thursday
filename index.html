@@ -95,13 +95,14 @@ body::after {
   text-align: center;
 }
 .header__title {
+  --title-glow: var(--neon-cyan);
   font-family: var(--font-pixel);
   font-size: clamp(1.1rem, 3.5vw, 1.8rem);
-  color: var(--neon-cyan);
+  color: var(--title-glow);
   text-shadow:
-    0 0 7px var(--neon-cyan),
-    0 0 20px rgba(0, 240, 255, 0.4),
-    0 0 40px rgba(0, 240, 255, 0.15);
+    0 0 7px var(--title-glow),
+    0 0 20px var(--title-glow),
+    0 0 40px var(--title-glow);
   letter-spacing: 0.04em;
 }
 
@@ -500,7 +501,7 @@ body::after {
 @media (max-width: 768px) {
   .header { padding: 1.5rem 0.75rem 0.8rem; }
   .header__title {
-    text-shadow: 0 0 0 var(--neon-cyan), 0 0 8px rgba(0, 240, 255, 0.3);
+    text-shadow: 0 0 0 var(--title-glow), 0 0 8px var(--title-glow);
   }
   .filter-bar { padding: 0.4rem 0.75rem; }
   .filter-section { margin-bottom: 0.2rem; }
@@ -1235,12 +1236,7 @@ render();
   title.addEventListener('click', (e) => {
     e.stopPropagation();
     colorIndex = (colorIndex + 1) % neonColors.length;
-    const color = neonColors[colorIndex];
-    title.style.color = color;
-    const mobile = window.matchMedia('(max-width: 768px)').matches;
-    title.style.textShadow = mobile
-      ? `0 0 0 ${color}, 0 0 8px ${color}`
-      : `0 0 7px ${color}, 0 0 20px ${color}, 0 0 40px ${color}`;
+    title.style.setProperty('--title-glow', neonColors[colorIndex]);
     const banner = document.querySelector('.pixel-banner');
     if (banner) banner.style.filter = `hue-rotate(${colorIndex * 60}deg)`;
   });
