@@ -641,6 +641,57 @@ body::after {
   animation: luckyPulse 1.5s ease-in-out 3;
 }
 
+/* EE7: Roulette wheel */
+.ee-roulette-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.ee-roulette-box {
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+.ee-roulette-canvas {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0, 240, 255, 0.2);
+}
+.ee-roulette-pointer {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 24px solid var(--neon-yellow);
+  filter: drop-shadow(0 0 6px var(--neon-yellow));
+  z-index: 2;
+}
+.ee-roulette-label {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--neon-yellow);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.ee-roulette-label.visible { opacity: 1; }
+
 /* EE6: Pixel confetti */
 .ee-confetti-piece {
   position: fixed;
@@ -1195,12 +1246,13 @@ render();
 (function() {
   const title = document.querySelector('.header__title');
   const eggNames = [
-    '1/6: BEER POUR',
-    '2/6: COLOR CYCLE',
-    '3/6: SLOT MACHINE',
-    '4/6: CRT GLITCH',
-    '5/6: LUCKY PICK',
-    '6/6: PIXEL CONFETTI'
+    '1/7: BEER POUR',
+    '2/7: COLOR CYCLE',
+    '3/7: SLOT MACHINE',
+    '4/7: CRT GLITCH',
+    '5/7: LUCKY PICK',
+    '6/7: PIXEL CONFETTI',
+    '7/7: ROULETTE WHEEL'
   ];
   let currentEgg = 0;
 
@@ -1227,6 +1279,7 @@ render();
       case 3: eggCRTGlitch(); break;
       case 4: eggLuckyPick(); break;
       case 5: eggPixelConfetti(); break;
+      case 6: eggRoulette(); break;
     }
   });
 
@@ -1325,6 +1378,145 @@ render();
       document.body.appendChild(piece);
       setTimeout(() => piece.remove(), 4000);
     }
+  }
+
+  // === EGG 7: Roulette Wheel ===
+  function eggRoulette() {
+    const cards = document.querySelectorAll('.card');
+    if (cards.length === 0) return;
+
+    // Get visible pub names from cards
+    const pubs = Array.from(cards).map(c => c.querySelector('.card__pub-name').textContent);
+    const segments = pubs.length;
+    const segAngle = (2 * Math.PI) / segments;
+
+    // Neon palette for segments
+    const palette = ['#39ff14','#ff2d95','#00f0ff','#ffe600','#ff6600','#b829ff','#ff4444','#14ffb4'];
+
+    // Build overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'ee-roulette-overlay';
+    const box = document.createElement('div');
+    box.className = 'ee-roulette-box';
+    const canvas = document.createElement('canvas');
+    canvas.className = 'ee-roulette-canvas';
+    canvas.width = 640;
+    canvas.height = 640;
+    const pointer = document.createElement('div');
+    pointer.className = 'ee-roulette-pointer';
+    const label = document.createElement('div');
+    label.className = 'ee-roulette-label';
+    box.appendChild(pointer);
+    box.appendChild(canvas);
+    box.appendChild(label);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    const ctx = canvas.getContext('2d');
+    const cx = 320, cy = 320, r = 300;
+
+    function drawWheel(rotation) {
+      ctx.clearRect(0, 0, 640, 640);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotation);
+      for (let i = 0; i < segments; i++) {
+        const start = i * segAngle;
+        const end = start + segAngle;
+        // Segment fill
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, r, start, end);
+        ctx.closePath();
+        ctx.fillStyle = palette[i % palette.length];
+        ctx.globalAlpha = 0.25;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = palette[i % palette.length];
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        // Label
+        ctx.save();
+        ctx.rotate(start + segAngle / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#fff';
+        ctx.font = `bold ${Math.min(20, 280 / segments)}px 'IBM Plex Mono', monospace`;
+        const name = pubs[i].length > 16 ? pubs[i].slice(0, 15) + '..' : pubs[i];
+        ctx.fillText(name, r - 14, 5);
+        ctx.restore();
+      }
+      ctx.restore();
+      // Center circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, 28, 0, 2 * Math.PI);
+      ctx.fillStyle = '#0a0a16';
+      ctx.fill();
+      ctx.strokeStyle = 'var(--neon-cyan)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Spin animation — easing deceleration
+    const winIndex = Math.floor(Math.random() * segments);
+    // Pointer is at top (270deg / -PI/2). We want the winning segment center under the pointer.
+    // Segment i center is at i*segAngle + segAngle/2 from 0 (3 o'clock).
+    // Pointer is at -PI/2 from 0. So we need rotation such that:
+    // rotation + winIndex*segAngle + segAngle/2 = -PI/2 (mod 2PI)
+    const targetAngle = -Math.PI / 2 - (winIndex * segAngle + segAngle / 2);
+    const totalSpin = targetAngle - 6 * Math.PI; // 3 full extra rotations
+    const spinDuration = 3000;
+    const startTime = performance.now();
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animate(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / spinDuration, 1);
+      const eased = easeOutCubic(t);
+      const currentRotation = totalSpin * eased;
+      drawWheel(currentRotation);
+
+      if (t < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        // Show winner
+        label.textContent = pubs[winIndex];
+        label.classList.add('visible');
+        // After a beat, close and scroll to winner
+        setTimeout(() => {
+          overlay.style.opacity = '0';
+          overlay.style.transition = 'opacity 0.3s';
+          setTimeout(() => {
+            overlay.remove();
+            // Highlight the winning card
+            document.querySelectorAll('.ee-lucky-pick').forEach(el => el.classList.remove('ee-lucky-pick'));
+            document.querySelectorAll('.ee-lucky-label').forEach(el => el.remove());
+            const winCard = cards[winIndex];
+            winCard.classList.add('ee-lucky-pick');
+            const luckyLabel = document.createElement('div');
+            luckyLabel.className = 'ee-lucky-label';
+            luckyLabel.textContent = 'LUCKY PICK';
+            winCard.style.position = 'relative';
+            winCard.appendChild(luckyLabel);
+            winCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+              winCard.classList.remove('ee-lucky-pick');
+              luckyLabel.remove();
+            }, 5000);
+          }, 300);
+        }, 1200);
+      }
+    }
+
+    drawWheel(0);
+    requestAnimationFrame(animate);
+
+    // Click overlay to dismiss early
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.remove();
+      }
+    });
   }
 })();
 </script>
