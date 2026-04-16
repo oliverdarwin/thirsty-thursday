@@ -390,6 +390,53 @@ body::after {
   text-shadow: 0 0 6px rgba(57, 255, 20, 0.2);
 }
 
+/* === STAR RATING === */
+.card__rating {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 0.5rem;
+}
+.star-rating {
+  display: inline-flex; gap: 1px;
+}
+.star-rating__star {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.1s, text-shadow 0.1s, transform 0.1s;
+  background: none; border: none; padding: 0 1px;
+  font-family: inherit; line-height: 1;
+}
+.star-rating__star:hover,
+.star-rating__star.hovered {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px rgba(255, 230, 0, 0.5);
+  transform: scale(1.15);
+}
+.star-rating__star.active {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 6px rgba(255, 230, 0, 0.3);
+}
+.star-rating__label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.star-rating__label--rated {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 4px rgba(255, 230, 0, 0.2);
+}
+
+/* Map card rating */
+.map-card__rating {
+  display: flex; align-items: center; gap: 5px;
+  margin-bottom: 0.4rem;
+}
+.map-card__rating .star-rating__star {
+  font-size: 0.95rem;
+}
+
 /* === SUGGEST CARD === */
 .card--suggest {
   border: 2px dashed var(--neon-pink);
@@ -557,6 +604,9 @@ body::after {
   .card__pub-name { font-size: 0.8rem; margin-bottom: 0.35rem; }
   .card__specials { gap: 4px; }
   .card__special { font-size: 0.65rem; padding: 2px 7px; }
+  .card__rating { margin-bottom: 0.3rem; }
+  .star-rating__star { font-size: 0.95rem; }
+  .star-rating__label { font-size: 0.55rem; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
   .grid-container, .map-container { padding: 0.5rem 0.75rem 1.5rem; }
   .counter-bar, .footer { padding-left: 0.75rem; padding-right: 0.75rem; }
@@ -790,6 +840,7 @@ body::after {
           <option value="price">Sort: Price</option>
           <option value="suburb">Sort: Suburb</option>
           <option value="name">Sort: Name</option>
+          <option value="rating">Sort: Rating</option>
         </select>
         <button class="pick-btn" id="pick-btn">Pick for me</button>
       </div>
@@ -868,6 +919,27 @@ const TYPE_HEX = {
 };
 
 // ============================================================
+// RATING SYSTEM (localStorage-backed)
+// ============================================================
+const RATINGS_KEY = 'tt-ratings';
+
+function loadRatings() {
+  try { return JSON.parse(localStorage.getItem(RATINGS_KEY)) || {}; }
+  catch { return {}; }
+}
+
+function saveRating(venueId, rating) {
+  const ratings = loadRatings();
+  if (rating === 0) delete ratings[venueId];
+  else ratings[venueId] = rating;
+  localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
+}
+
+function getRating(venueId) {
+  return loadRatings()[venueId] || 0;
+}
+
+// ============================================================
 // STATE
 // ============================================================
 let activeDays = new Set(['Thu']);
@@ -898,6 +970,8 @@ function sortVenues(venues) {
       return copy.sort((a, b) => a.suburb.localeCompare(b.suburb) || a.name.localeCompare(b.name));
     case 'name':
       return copy.sort((a, b) => a.name.localeCompare(b.name));
+    case 'rating':
+      return copy.sort((a, b) => getRating(b.id) - getRating(a.id) || a.name.localeCompare(b.name));
     default:
       return copy;
   }
@@ -916,6 +990,27 @@ function mapsUrl(venue) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.name + ' ' + venue.suburb + ' Sydney')}`;
 }
 
+function renderMapStars(venueId) {
+  const rating = getRating(venueId);
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    const active = i <= rating ? ' active' : '';
+    stars += `<button class="star-rating__star${active}" data-venue="${venueId}" data-star="${i}" aria-label="Rate ${i} star${i > 1 ? 's' : ''}">★</button>`;
+  }
+  return `<div class="map-card__rating"><div class="star-rating">${stars}</div></div>`;
+}
+
+function renderStars(venueId) {
+  const rating = getRating(venueId);
+  const label = rating > 0 ? `<span class="star-rating__label star-rating__label--rated">Your rating</span>` : `<span class="star-rating__label">Rate this venue</span>`;
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    const active = i <= rating ? ' active' : '';
+    stars += `<button class="star-rating__star${active}" data-venue="${venueId}" data-star="${i}" aria-label="Rate ${i} star${i > 1 ? 's' : ''}">★</button>`;
+  }
+  return `<div class="card__rating"><div class="star-rating">${stars}</div>${label}</div>`;
+}
+
 function renderCard(venue, index) {
   const specials = venue.specials.map(s =>
     `<span class="card__special"><strong>$${s.price}</strong> ${escapeHtml(s.item)}</span>`
@@ -923,12 +1018,13 @@ function renderCard(venue, index) {
 
   const dayLabel = activeDays.has('Thu') ? 'Thu' : [...activeDays][0] || '';
 
-  return `<article class="card" data-suburb="${escapeHtml(venue.suburb)}" style="animation-delay:${Math.min(index * 30, 500)}ms" onclick="window.open('${mapsUrl(venue)}','_blank')">
+  return `<article class="card" data-suburb="${escapeHtml(venue.suburb)}" data-venue-id="${venue.id}" style="animation-delay:${Math.min(index * 30, 500)}ms" onclick="window.open('${mapsUrl(venue)}','_blank')">
   <div class="card__top-row">
     <span class="card__suburb-badge" data-suburb="${escapeHtml(venue.suburb)}">${escapeHtml(venue.suburb)}</span>
     <span class="card__day-badge" data-day="${escapeHtml(dayLabel)}">${escapeHtml(dayLabel).toUpperCase()}</span>
   </div>
   <div class="card__pub-name">${escapeHtml(venue.name)}</div>
+  ${renderStars(venue.id)}
   <div class="card__specials">${specials}</div>
 </article>`;
 }
@@ -1145,6 +1241,7 @@ function showMapCard(venue) {
       </div>
       <button class="map-card__close" onclick="hideMapCard()">&#10005;</button>
     </div>
+    ${renderMapStars(venue.id)}
     <div class="map-card__specials">${specials}</div>
     <a class="map-card__directions" href="${mapsUrl(venue)}" target="_blank" rel="noopener">Get Directions</a>
   `;
@@ -1270,6 +1367,57 @@ document.querySelectorAll('.view-btn').forEach(btn => {
 });
 
 render();
+
+// ============================================================
+// STAR RATING EVENT HANDLERS
+// ============================================================
+document.addEventListener('click', (e) => {
+  const star = e.target.closest('.star-rating__star');
+  if (!star) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const venueId = parseInt(star.dataset.venue, 10);
+  const starValue = parseInt(star.dataset.star, 10);
+  const current = getRating(venueId);
+
+  // Toggle off if clicking same rating
+  const newRating = current === starValue ? 0 : starValue;
+  saveRating(venueId, newRating);
+
+  // Re-render just the stars in this card (avoid full re-render flicker)
+  const card = star.closest('.card, .map-card');
+  if (card) {
+    const ratingContainer = card.querySelector('.card__rating, .map-card__rating');
+    if (ratingContainer) {
+      const temp = document.createElement('div');
+      temp.innerHTML = card.classList.contains('map-card') ? renderMapStars(venueId) : renderStars(venueId);
+      ratingContainer.replaceWith(temp.firstElementChild);
+    }
+  }
+});
+
+// Hover effect for stars
+document.addEventListener('mouseover', (e) => {
+  const star = e.target.closest('.star-rating__star');
+  if (!star) return;
+  const container = star.closest('.star-rating');
+  if (!container) return;
+  const hoverVal = parseInt(star.dataset.star, 10);
+  container.querySelectorAll('.star-rating__star').forEach(s => {
+    s.classList.toggle('hovered', parseInt(s.dataset.star, 10) <= hoverVal);
+  });
+});
+
+document.addEventListener('mouseout', (e) => {
+  const star = e.target.closest('.star-rating__star');
+  if (!star) return;
+  const container = star.closest('.star-rating');
+  if (!container) return;
+  container.querySelectorAll('.star-rating__star').forEach(s => {
+    s.classList.remove('hovered');
+  });
+});
 
 // ============================================================
 // EASTER EGG: Color cycle on title click
