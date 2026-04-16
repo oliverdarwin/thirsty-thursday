@@ -312,7 +312,6 @@ body::after {
   position: relative;
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   animation: cardIn 0.2s ease backwards;
-  cursor: pointer;
 }
 
 .card[data-suburb="Darlinghurst"] { border-color: var(--neon-pink); box-shadow: 0 0 8px rgba(255,45,149,0.3), inset 0 0 8px rgba(255,45,149,0.06); }
@@ -390,11 +389,23 @@ body::after {
   text-shadow: 0 0 6px rgba(57, 255, 20, 0.2);
 }
 
-/* === STAR RATING === */
-.card__rating {
-  display: flex; align-items: center; gap: 6px;
-  margin-bottom: 0.5rem;
+/* === CARD ACTIONS BAR === */
+.card__actions {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 0.6rem; padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  gap: 8px;
 }
+.card__directions-btn {
+  font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 2px;
+  background: var(--neon-cyan); color: #000; border: none;
+  cursor: pointer; text-transform: uppercase; text-decoration: none;
+  transition: opacity 0.12s; white-space: nowrap;
+}
+.card__directions-btn:hover { opacity: 0.85; }
+
+/* === STAR RATING === */
 .star-rating {
   display: inline-flex; gap: 1px;
 }
@@ -415,17 +426,6 @@ body::after {
 .star-rating__star.active {
   color: var(--neon-yellow);
   text-shadow: 0 0 6px rgba(255, 230, 0, 0.3);
-}
-.star-rating__label {
-  font-family: var(--font-body);
-  font-size: 0.62rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-.star-rating__label--rated {
-  color: var(--neon-yellow);
-  text-shadow: 0 0 4px rgba(255, 230, 0, 0.2);
 }
 
 /* Map card rating */
@@ -604,9 +604,9 @@ body::after {
   .card__pub-name { font-size: 0.8rem; margin-bottom: 0.35rem; }
   .card__specials { gap: 4px; }
   .card__special { font-size: 0.65rem; padding: 2px 7px; }
-  .card__rating { margin-bottom: 0.3rem; }
+  .card__actions { margin-top: 0.4rem; padding-top: 0.35rem; }
+  .card__directions-btn { font-size: 0.6rem; padding: 4px 9px; }
   .star-rating__star { font-size: 0.95rem; }
-  .star-rating__label { font-size: 0.55rem; }
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
   .grid-container, .map-container { padding: 0.5rem 0.75rem 1.5rem; }
   .counter-bar, .footer { padding-left: 0.75rem; padding-right: 0.75rem; }
@@ -1002,13 +1002,12 @@ function renderMapStars(venueId) {
 
 function renderStars(venueId) {
   const rating = getRating(venueId);
-  const label = rating > 0 ? `<span class="star-rating__label star-rating__label--rated">Your rating</span>` : `<span class="star-rating__label">Rate this venue</span>`;
   let stars = '';
   for (let i = 1; i <= 5; i++) {
     const active = i <= rating ? ' active' : '';
     stars += `<button class="star-rating__star${active}" data-venue="${venueId}" data-star="${i}" aria-label="Rate ${i} star${i > 1 ? 's' : ''}">★</button>`;
   }
-  return `<div class="card__rating"><div class="star-rating">${stars}</div>${label}</div>`;
+  return `<div class="star-rating">${stars}</div>`;
 }
 
 function renderCard(venue, index) {
@@ -1018,14 +1017,17 @@ function renderCard(venue, index) {
 
   const dayLabel = activeDays.has('Thu') ? 'Thu' : [...activeDays][0] || '';
 
-  return `<article class="card" data-suburb="${escapeHtml(venue.suburb)}" data-venue-id="${venue.id}" style="animation-delay:${Math.min(index * 30, 500)}ms" onclick="window.open('${mapsUrl(venue)}','_blank')">
+  return `<article class="card" data-suburb="${escapeHtml(venue.suburb)}" data-venue-id="${venue.id}" style="animation-delay:${Math.min(index * 30, 500)}ms">
   <div class="card__top-row">
     <span class="card__suburb-badge" data-suburb="${escapeHtml(venue.suburb)}">${escapeHtml(venue.suburb)}</span>
     <span class="card__day-badge" data-day="${escapeHtml(dayLabel)}">${escapeHtml(dayLabel).toUpperCase()}</span>
   </div>
   <div class="card__pub-name">${escapeHtml(venue.name)}</div>
-  ${renderStars(venue.id)}
   <div class="card__specials">${specials}</div>
+  <div class="card__actions">
+    <a class="card__directions-btn" href="${mapsUrl(venue)}" target="_blank" rel="noopener">Directions</a>
+    ${renderStars(venue.id)}
+  </div>
 </article>`;
 }
 
@@ -1387,12 +1389,19 @@ document.addEventListener('click', (e) => {
 
   // Re-render just the stars in this card (avoid full re-render flicker)
   const card = star.closest('.card, .map-card');
-  if (card) {
-    const ratingContainer = card.querySelector('.card__rating, .map-card__rating');
-    if (ratingContainer) {
+  if (card && card.classList.contains('map-card')) {
+    const wrapper = card.querySelector('.map-card__rating');
+    if (wrapper) {
       const temp = document.createElement('div');
-      temp.innerHTML = card.classList.contains('map-card') ? renderMapStars(venueId) : renderStars(venueId);
-      ratingContainer.replaceWith(temp.firstElementChild);
+      temp.innerHTML = renderMapStars(venueId);
+      wrapper.replaceWith(temp.firstElementChild);
+    }
+  } else {
+    const container = star.closest('.star-rating');
+    if (container) {
+      const temp = document.createElement('div');
+      temp.innerHTML = renderStars(venueId);
+      container.replaceWith(temp.firstElementChild);
     }
   }
 });
