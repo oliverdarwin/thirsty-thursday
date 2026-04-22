@@ -917,13 +917,8 @@ body::after {
   margin-bottom: 0.4rem;
   letter-spacing: 0.08em;
 }
-.auth-modal__greeting {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  color: var(--text);
-  text-align: center;
-  margin-bottom: 1.4rem;
-  line-height: 1.5;
+.auth-modal__bouncer {
+  margin-bottom: 1.2rem;
 }
 .auth-modal__form { display: flex; flex-direction: column; gap: 0.7rem; }
 .auth-modal__field {
@@ -1338,23 +1333,6 @@ async function migrateLocalRatings() {
 // ============================================================
 // AUTH UI
 // ============================================================
-const BOUNCER_LINES_SIGNIN = [
-  "Anything to drink tonight mate?",
-  "G'day! Back for another round?",
-  "Oi, welcome back legend.",
-  "The usual tonight?",
-];
-const BOUNCER_LINES_SIGNUP = [
-  "New face! What can I get ya?",
-  "First time here? You'll love it.",
-  "Welcome to the party, mate!",
-  "Pull up a stool, newcomer.",
-];
-
-function randomBouncer(lines) {
-  return lines[Math.floor(Math.random() * lines.length)];
-}
-
 function showAuthModal(mode) {
   const existing = document.querySelector('.auth-overlay');
   if (existing) existing.remove();
@@ -1365,28 +1343,27 @@ function showAuthModal(mode) {
   overlay.innerHTML = `
     <div class="auth-modal">
       <button class="auth-modal__close" id="auth-close">&#10005;</button>
-      <div class="auth-modal__bouncer">${isSignUp ? '// NEW IN TOWN' : '// THE DOOR'}</div>
-      <div class="auth-modal__greeting">${escapeHtml(randomBouncer(isSignUp ? BOUNCER_LINES_SIGNUP : BOUNCER_LINES_SIGNIN))}</div>
+      <div class="auth-modal__bouncer">Anything to drink tonight mate?</div>
       <div class="auth-modal__error" id="auth-error"></div>
       <form class="auth-modal__form" id="auth-form">
         ${isSignUp ? `<div class="auth-modal__field">
           <label class="auth-modal__label">Your name</label>
-          <input class="auth-modal__input" type="text" id="auth-name" placeholder="What do your mates call you?" autocomplete="name">
+          <input class="auth-modal__input" type="text" id="auth-name" placeholder="Name" autocomplete="name">
         </div>` : ''}
         <div class="auth-modal__field">
           <label class="auth-modal__label">Email</label>
-          <input class="auth-modal__input" type="email" id="auth-email" placeholder="your@email.com" required autocomplete="email">
+          <input class="auth-modal__input" type="email" id="auth-email" placeholder="Email" required autocomplete="email">
         </div>
         <div class="auth-modal__field">
           <label class="auth-modal__label">Password</label>
-          <input class="auth-modal__input" type="password" id="auth-password" placeholder="${isSignUp ? 'Make it a good one' : 'You know the drill'}" required autocomplete="${isSignUp ? 'new-password' : 'current-password'}" minlength="6">
+          <input class="auth-modal__input" type="password" id="auth-password" placeholder="Password" required autocomplete="${isSignUp ? 'new-password' : 'current-password'}" minlength="6">
         </div>
-        <button class="auth-modal__submit" type="submit">${isSignUp ? 'Join the crew' : 'Let me in'}</button>
+        <button class="auth-modal__submit" type="submit">${isSignUp ? 'Sign up' : 'Sign in'}</button>
       </form>
       <div class="auth-modal__toggle">
         ${isSignUp
-          ? 'Already a regular? <a id="auth-switch">Sign in</a>'
-          : 'First time? <a id="auth-switch">Create account</a>'}
+          ? 'Already have an account? <a id="auth-switch">Sign in</a>'
+          : 'Don\'t have an account? <a id="auth-switch">Sign up</a>'}
       </div>
     </div>
   `;
