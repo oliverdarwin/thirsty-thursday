@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -782,13 +783,272 @@ body::after {
   80% { opacity: 1; }
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
+
+/* === AUTH BUTTON === */
+.auth-btn {
+  width: 34px; height: 34px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  padding: 0;
+}
+.auth-btn:hover { border-color: var(--neon-green); }
+.auth-btn__icon {
+  color: var(--text-dim);
+  filter: drop-shadow(0 0 2px currentColor);
+  transition: color 0.15s, filter 0.15s;
+  display: flex;
+}
+.auth-btn:hover .auth-btn__icon {
+  color: var(--neon-green);
+  filter: drop-shadow(0 0 4px var(--neon-green));
+}
+[data-theme="light"] .auth-btn__icon { filter: none; }
+[data-theme="light"] .auth-btn:hover .auth-btn__icon { filter: none; }
+
+.auth-btn--logged-in {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 6px rgba(57, 255, 20, 0.2);
+}
+.auth-btn__avatar {
+  width: 24px; height: 24px;
+  border-radius: 2px;
+  background: rgba(57, 255, 20, 0.1);
+  color: var(--neon-green);
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  display: flex; align-items: center; justify-content: center;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.3);
+}
+
+/* === AUTH DROPDOWN === */
+.auth-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.6rem 0.8rem;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index: 200;
+  animation: cardIn 0.15s ease;
+}
+.auth-dropdown__name {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+.auth-dropdown__email {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+  word-break: break-all;
+}
+.auth-dropdown__signout {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  background: transparent;
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.12s;
+  width: 100%;
+}
+.auth-dropdown__signout:hover {
+  background: var(--neon-pink);
+  color: var(--bg);
+}
+
+/* === AUTH MODAL === */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+.auth-modal {
+  background: var(--bg-card);
+  border: 2px solid var(--neon-green);
+  border-radius: 3px;
+  padding: 2rem 1.8rem;
+  width: min(90vw, 380px);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.15), 0 0 60px rgba(57, 255, 20, 0.05);
+  position: relative;
+  animation: cardIn 0.2s ease;
+}
+.auth-modal__close {
+  position: absolute;
+  top: 0.7rem; right: 0.7rem;
+  width: 28px; height: 28px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s;
+}
+.auth-modal__close:hover { border-color: var(--neon-pink); color: var(--neon-pink); }
+.auth-modal__bouncer {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+  text-align: center;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.08em;
+}
+.auth-modal__greeting {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 1.4rem;
+  line-height: 1.5;
+}
+.auth-modal__form { display: flex; flex-direction: column; gap: 0.7rem; }
+.auth-modal__field {
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.auth-modal__label {
+  font-family: var(--font-pixel);
+  font-size: 0.36rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.auth-modal__input {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  padding: 8px 10px;
+  background: var(--bg);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.12s;
+}
+.auth-modal__input:focus { border-color: var(--neon-green); }
+.auth-modal__input::placeholder { color: var(--text-dim); }
+.auth-modal__submit {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  padding: 10px 16px;
+  background: var(--neon-green);
+  color: #000;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: all 0.15s;
+  margin-top: 0.3rem;
+}
+.auth-modal__submit:hover {
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.5);
+}
+.auth-modal__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.auth-modal__toggle {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-top: 0.6rem;
+}
+.auth-modal__toggle a {
+  color: var(--neon-cyan);
+  cursor: pointer;
+  text-decoration: none;
+}
+.auth-modal__toggle a:hover { text-decoration: underline; }
+.auth-modal__error {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--neon-red);
+  text-align: center;
+  min-height: 1.2em;
+}
+.auth-modal__success {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--neon-green);
+  text-align: center;
+  line-height: 1.5;
+  padding: 1rem 0;
+}
+
+/* === COMMUNITY RATING DISPLAY === */
+.card__community-rating {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+/* === SPECIAL-LEVEL RATING === */
+.card__special-rate {
+  display: inline-flex;
+  gap: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.card__special-star {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0 0.5px;
+  transition: color 0.1s, text-shadow 0.1s;
+  font-family: inherit;
+  line-height: 1;
+}
+.card__special-star:hover,
+.card__special-star.hovered { color: var(--neon-yellow); text-shadow: 0 0 6px rgba(255, 230, 0, 0.4); }
+.card__special-star.active { color: var(--neon-yellow); text-shadow: 0 0 4px rgba(255, 230, 0, 0.2); }
+
+@media (max-width: 768px) {
+  .auth-modal { padding: 1.4rem 1.2rem; }
+  .auth-modal__bouncer { font-size: 0.45rem; }
+  .auth-dropdown { min-width: 160px; }
+}
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header__row">
-    <div></div>
+    <div style="position:relative">
+      <button class="auth-btn" id="auth-btn" aria-label="Sign in">
+        <span class="auth-btn__icon" id="auth-icon">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="2"/><rect x="4" y="3" width="8" height="4"/><rect x="6" y="7" width="4" height="1"/><rect x="2" y="8" width="12" height="2"/><rect x="1" y="10" width="14" height="2"/><rect x="1" y="12" width="3" height="2"/><rect x="12" y="12" width="3" height="2"/></svg>
+        </span>
+      </button>
+      <div class="auth-dropdown" id="auth-dropdown" style="display:none"></div>
+    </div>
     <div>
       <h1 class="header__title">THIRSTY THURSDAY</h1>
     </div>
@@ -862,6 +1122,18 @@ body::after {
 
 <script>
 // ============================================================
+// SUPABASE CLIENT
+// ============================================================
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+let sb = null;
+try {
+  if (window.supabase && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (e) { /* Supabase unavailable — app works fully without it */ }
+
+// ============================================================
 // FEEDBACK EMAIL (change this when you have a dedicated app email)
 // ============================================================
 const FEEDBACK_EMAIL = 'oliver_darwin@outlook.com';
@@ -919,25 +1191,324 @@ const TYPE_HEX = {
 };
 
 // ============================================================
-// RATING SYSTEM (localStorage-backed)
+// UTILITY
+// ============================================================
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ============================================================
+// AUTH STATE
+// ============================================================
+let currentUser = null;
+let supabaseVenueRatings = {};
+let supabaseSpecialRatings = {};
+let communityVenueRatings = {};
+let communitySpecialRatings = {};
+
+// ============================================================
+// RATING SYSTEM (dual-mode: localStorage for anon, Supabase for auth)
 // ============================================================
 const RATINGS_KEY = 'tt-ratings';
+const SPECIAL_RATINGS_KEY = 'tt-special-ratings';
 
 function loadRatings() {
   try { return JSON.parse(localStorage.getItem(RATINGS_KEY)) || {}; }
   catch { return {}; }
 }
 
-function saveRating(venueId, rating) {
-  const ratings = loadRatings();
-  if (rating === 0) delete ratings[venueId];
-  else ratings[venueId] = rating;
-  localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
+function loadLocalSpecialRatings() {
+  try { return JSON.parse(localStorage.getItem(SPECIAL_RATINGS_KEY)) || {}; }
+  catch { return {}; }
 }
 
 function getRating(venueId) {
+  if (currentUser) return supabaseVenueRatings[venueId] || 0;
   return loadRatings()[venueId] || 0;
 }
+
+function getSpecialRating(specialId) {
+  if (currentUser) return supabaseSpecialRatings[specialId] || 0;
+  return loadLocalSpecialRatings()[specialId] || 0;
+}
+
+function getCommunityRating(venueId) {
+  return communityVenueRatings[venueId] || null;
+}
+
+function getCommunitySpecialRating(specialId) {
+  return communitySpecialRatings[specialId] || null;
+}
+
+function saveRating(venueId, rating) {
+  if (currentUser && sb) {
+    supabaseVenueRatings[venueId] = rating;
+    if (rating === 0) {
+      delete supabaseVenueRatings[venueId];
+      sb.from('venue_ratings').delete()
+        .eq('user_id', currentUser.id).eq('venue_id', venueId).then();
+    } else {
+      sb.from('venue_ratings').upsert({
+        user_id: currentUser.id, venue_id: venueId, rating: rating
+      }, { onConflict: 'user_id,venue_id' }).then();
+    }
+    loadCommunityRatings();
+  } else {
+    const ratings = loadRatings();
+    if (rating === 0) delete ratings[venueId];
+    else ratings[venueId] = rating;
+    localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
+  }
+}
+
+function saveSpecialRating(specialId, rating) {
+  if (currentUser && sb) {
+    supabaseSpecialRatings[specialId] = rating;
+    if (rating === 0) {
+      delete supabaseSpecialRatings[specialId];
+      sb.from('special_ratings').delete()
+        .eq('user_id', currentUser.id).eq('special_id', specialId).then();
+    } else {
+      sb.from('special_ratings').upsert({
+        user_id: currentUser.id, special_id: specialId, rating: rating
+      }, { onConflict: 'user_id,special_id' }).then();
+    }
+    loadCommunityRatings();
+  } else {
+    const ratings = loadLocalSpecialRatings();
+    if (rating === 0) delete ratings[specialId];
+    else ratings[specialId] = rating;
+    localStorage.setItem(SPECIAL_RATINGS_KEY, JSON.stringify(ratings));
+  }
+}
+
+async function loadUserRatings() {
+  if (!currentUser || !sb) return;
+  const { data: vr } = await sb.from('venue_ratings')
+    .select('venue_id, rating').eq('user_id', currentUser.id);
+  supabaseVenueRatings = {};
+  (vr || []).forEach(r => { supabaseVenueRatings[r.venue_id] = r.rating; });
+
+  const { data: sr } = await sb.from('special_ratings')
+    .select('special_id, rating').eq('user_id', currentUser.id);
+  supabaseSpecialRatings = {};
+  (sr || []).forEach(r => { supabaseSpecialRatings[r.special_id] = r.rating; });
+}
+
+async function loadCommunityRatings() {
+  if (!sb) return;
+  const { data: vr } = await sb.from('venue_rating_stats').select('*');
+  communityVenueRatings = {};
+  (vr || []).forEach(r => {
+    communityVenueRatings[r.venue_id] = { avg: parseFloat(r.avg_rating), count: parseInt(r.rating_count) };
+  });
+  const { data: sr } = await sb.from('special_rating_stats').select('*');
+  communitySpecialRatings = {};
+  (sr || []).forEach(r => {
+    communitySpecialRatings[r.special_id] = { avg: parseFloat(r.avg_rating), count: parseInt(r.rating_count) };
+  });
+}
+
+async function migrateLocalRatings() {
+  if (!currentUser || !sb) return;
+  const localVenue = loadRatings();
+  const venueEntries = Object.entries(localVenue);
+  if (venueEntries.length > 0) {
+    const rows = venueEntries.map(([vid, rating]) => ({
+      user_id: currentUser.id, venue_id: parseInt(vid), rating: rating
+    }));
+    const { error } = await sb.from('venue_ratings')
+      .upsert(rows, { onConflict: 'user_id,venue_id' });
+    if (!error) localStorage.removeItem(RATINGS_KEY);
+  }
+  const localSpecial = loadLocalSpecialRatings();
+  const specialEntries = Object.entries(localSpecial);
+  if (specialEntries.length > 0) {
+    const rows = specialEntries.map(([sid, rating]) => ({
+      user_id: currentUser.id, special_id: parseInt(sid), rating: rating
+    }));
+    const { error } = await sb.from('special_ratings')
+      .upsert(rows, { onConflict: 'user_id,special_id' });
+    if (!error) localStorage.removeItem(SPECIAL_RATINGS_KEY);
+  }
+}
+
+// ============================================================
+// AUTH UI
+// ============================================================
+const BOUNCER_LINES_SIGNIN = [
+  "Anything to drink tonight mate?",
+  "G'day! Back for another round?",
+  "Oi, welcome back legend.",
+  "The usual tonight?",
+];
+const BOUNCER_LINES_SIGNUP = [
+  "New face! What can I get ya?",
+  "First time here? You'll love it.",
+  "Welcome to the party, mate!",
+  "Pull up a stool, newcomer.",
+];
+
+function randomBouncer(lines) {
+  return lines[Math.floor(Math.random() * lines.length)];
+}
+
+function showAuthModal(mode) {
+  const existing = document.querySelector('.auth-overlay');
+  if (existing) existing.remove();
+
+  const isSignUp = mode === 'signup';
+  const overlay = document.createElement('div');
+  overlay.className = 'auth-overlay';
+  overlay.innerHTML = `
+    <div class="auth-modal">
+      <button class="auth-modal__close" id="auth-close">&#10005;</button>
+      <div class="auth-modal__bouncer">${isSignUp ? '// NEW IN TOWN' : '// THE DOOR'}</div>
+      <div class="auth-modal__greeting">${escapeHtml(randomBouncer(isSignUp ? BOUNCER_LINES_SIGNUP : BOUNCER_LINES_SIGNIN))}</div>
+      <div class="auth-modal__error" id="auth-error"></div>
+      <form class="auth-modal__form" id="auth-form">
+        ${isSignUp ? `<div class="auth-modal__field">
+          <label class="auth-modal__label">Your name</label>
+          <input class="auth-modal__input" type="text" id="auth-name" placeholder="What do your mates call you?" autocomplete="name">
+        </div>` : ''}
+        <div class="auth-modal__field">
+          <label class="auth-modal__label">Email</label>
+          <input class="auth-modal__input" type="email" id="auth-email" placeholder="your@email.com" required autocomplete="email">
+        </div>
+        <div class="auth-modal__field">
+          <label class="auth-modal__label">Password</label>
+          <input class="auth-modal__input" type="password" id="auth-password" placeholder="${isSignUp ? 'Make it a good one' : 'You know the drill'}" required autocomplete="${isSignUp ? 'new-password' : 'current-password'}" minlength="6">
+        </div>
+        <button class="auth-modal__submit" type="submit">${isSignUp ? 'Join the crew' : 'Let me in'}</button>
+      </form>
+      <div class="auth-modal__toggle">
+        ${isSignUp
+          ? 'Already a regular? <a id="auth-switch">Sign in</a>'
+          : 'First time? <a id="auth-switch">Create account</a>'}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('#auth-close').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('#auth-switch').addEventListener('click', () => {
+    overlay.remove();
+    showAuthModal(isSignUp ? 'signin' : 'signup');
+  });
+
+  const form = overlay.querySelector('#auth-form');
+  const errEl = overlay.querySelector('#auth-error');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!sb) {
+      errEl.textContent = 'Supabase not configured yet. Coming soon!';
+      return;
+    }
+    const email = overlay.querySelector('#auth-email').value.trim();
+    const password = overlay.querySelector('#auth-password').value;
+    const submitBtn = form.querySelector('.auth-modal__submit');
+    submitBtn.disabled = true;
+    errEl.textContent = '';
+
+    if (isSignUp) {
+      const displayName = (overlay.querySelector('#auth-name')?.value || '').trim();
+      const { data, error } = await sb.auth.signUp({
+        email, password,
+        options: { data: { display_name: displayName || email.split('@')[0] } }
+      });
+      if (error) {
+        errEl.textContent = error.message;
+        submitBtn.disabled = false;
+      } else {
+        form.innerHTML = '<div class="auth-modal__success">Nice one! Check your email to confirm, then come back and sign in.</div>';
+      }
+    } else {
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) {
+        errEl.textContent = error.message;
+        submitBtn.disabled = false;
+      } else {
+        overlay.remove();
+      }
+    }
+  });
+
+  setTimeout(() => overlay.querySelector('#auth-email')?.focus(), 100);
+}
+
+function updateAuthUI() {
+  const btn = document.getElementById('auth-btn');
+  const icon = document.getElementById('auth-icon');
+  const dropdown = document.getElementById('auth-dropdown');
+
+  if (currentUser) {
+    const initial = (currentUser.user_metadata?.display_name || currentUser.email || '?')[0].toUpperCase();
+    btn.classList.add('auth-btn--logged-in');
+    icon.innerHTML = `<div class="auth-btn__avatar">${escapeHtml(initial)}</div>`;
+  } else {
+    btn.classList.remove('auth-btn--logged-in');
+    icon.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="2"/><rect x="4" y="3" width="8" height="4"/><rect x="6" y="7" width="4" height="1"/><rect x="2" y="8" width="12" height="2"/><rect x="1" y="10" width="14" height="2"/><rect x="1" y="12" width="3" height="2"/><rect x="12" y="12" width="3" height="2"/></svg>';
+  }
+  dropdown.style.display = 'none';
+}
+
+function toggleAuthDropdown() {
+  const dropdown = document.getElementById('auth-dropdown');
+  if (dropdown.style.display === 'none') {
+    const name = currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'You';
+    const email = currentUser.email || '';
+    dropdown.innerHTML = `
+      <div class="auth-dropdown__name">${escapeHtml(name)}</div>
+      <div class="auth-dropdown__email">${escapeHtml(email)}</div>
+      <button class="auth-dropdown__signout" id="auth-signout">Sign out</button>
+    `;
+    dropdown.style.display = 'block';
+    dropdown.querySelector('#auth-signout').addEventListener('click', async () => {
+      if (sb) await sb.auth.signOut();
+      dropdown.style.display = 'none';
+    });
+  } else {
+    dropdown.style.display = 'none';
+  }
+}
+
+document.getElementById('auth-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentUser) {
+    toggleAuthDropdown();
+  } else {
+    showAuthModal('signin');
+  }
+});
+
+document.addEventListener('click', (e) => {
+  const dropdown = document.getElementById('auth-dropdown');
+  if (!e.target.closest('#auth-dropdown') && !e.target.closest('#auth-btn')) {
+    dropdown.style.display = 'none';
+  }
+});
+
+if (sb) {
+  sb.auth.onAuthStateChange(async (event, session) => {
+    currentUser = session?.user || null;
+    updateAuthUI();
+    if (currentUser) {
+      await migrateLocalRatings();
+      await loadUserRatings();
+      await loadCommunityRatings();
+    } else {
+      supabaseVenueRatings = {};
+      supabaseSpecialRatings = {};
+    }
+    render();
+  });
+  loadCommunityRatings();
+}
+
+updateAuthUI();
 
 // ============================================================
 // STATE
@@ -980,14 +1551,14 @@ function sortVenues(venues) {
 // ============================================================
 // RENDERING
 // ============================================================
-function escapeHtml(str) {
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
-}
-
 function mapsUrl(venue) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.name + ' ' + venue.suburb + ' Sydney')}`;
+}
+
+function renderCommunityBadge(venueId) {
+  const cr = getCommunityRating(venueId);
+  if (!cr || cr.count === 0) return '';
+  return `<span class="card__community-rating">${cr.avg.toFixed(1)} avg (${cr.count})</span>`;
 }
 
 function renderMapStars(venueId) {
@@ -997,7 +1568,7 @@ function renderMapStars(venueId) {
     const active = i <= rating ? ' active' : '';
     stars += `<button class="star-rating__star${active}" data-venue="${venueId}" data-star="${i}" aria-label="Rate ${i} star${i > 1 ? 's' : ''}">★</button>`;
   }
-  return `<div class="map-card__rating"><div class="star-rating">${stars}</div></div>`;
+  return `<div class="map-card__rating"><div class="star-rating">${stars}</div>${renderCommunityBadge(venueId)}</div>`;
 }
 
 function renderStars(venueId) {
@@ -1007,13 +1578,25 @@ function renderStars(venueId) {
     const active = i <= rating ? ' active' : '';
     stars += `<button class="star-rating__star${active}" data-venue="${venueId}" data-star="${i}" aria-label="Rate ${i} star${i > 1 ? 's' : ''}">★</button>`;
   }
-  return `<div class="star-rating">${stars}</div>`;
+  return `<div class="star-rating">${stars}</div>${renderCommunityBadge(venueId)}`;
+}
+
+function renderSpecialStars(specialId) {
+  if (!specialId) return '';
+  const rating = getSpecialRating(specialId);
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    const active = i <= rating ? ' active' : '';
+    stars += `<button class="card__special-star${active}" data-special="${specialId}" data-star="${i}">★</button>`;
+  }
+  return `<span class="card__special-rate">${stars}</span>`;
 }
 
 function renderCard(venue, index) {
-  const specials = venue.specials.map(s =>
-    `<span class="card__special"><strong>$${s.price}</strong> ${escapeHtml(s.item)}</span>`
-  ).join('');
+  const specials = venue.specials.map(s => {
+    const sid = s.id || '';
+    return `<span class="card__special" data-special-id="${sid}"><strong>$${s.price}</strong> ${escapeHtml(s.item)}${renderSpecialStars(sid)}</span>`;
+  }).join('');
 
   const dayLabel = activeDays.has('Thu') ? 'Thu' : [...activeDays][0] || '';
 
@@ -1229,9 +1812,10 @@ function showMapCard(venue) {
   selectedMapVenue = venue;
   const container = document.getElementById('pub-map');
   const point = map.latLngToContainerPoint([venue.lat, venue.lng]);
-  const specials = venue.specials.map(s =>
-    `<span class="map-card__special"><strong>$${s.price}</strong> ${escapeHtml(s.item)}</span>`
-  ).join('');
+  const specials = venue.specials.map(s => {
+    const sid = s.id || '';
+    return `<span class="map-card__special"><strong>$${s.price}</strong> ${escapeHtml(s.item)}${renderSpecialStars(sid)}</span>`;
+  }).join('');
   const card = document.createElement('div');
   card.className = 'map-card';
   card.id = 'map-card';
@@ -1371,7 +1955,7 @@ document.querySelectorAll('.view-btn').forEach(btn => {
 render();
 
 // ============================================================
-// STAR RATING EVENT HANDLERS
+// STAR RATING EVENT HANDLERS (venue-level)
 // ============================================================
 document.addEventListener('click', (e) => {
   const star = e.target.closest('.star-rating__star');
@@ -1383,11 +1967,9 @@ document.addEventListener('click', (e) => {
   const starValue = parseInt(star.dataset.star, 10);
   const current = getRating(venueId);
 
-  // Toggle off if clicking same rating
   const newRating = current === starValue ? 0 : starValue;
   saveRating(venueId, newRating);
 
-  // Re-render just the stars in this card (avoid full re-render flicker)
   const card = star.closest('.card, .map-card');
   if (card && card.classList.contains('map-card')) {
     const wrapper = card.querySelector('.map-card__rating');
@@ -1401,12 +1983,37 @@ document.addEventListener('click', (e) => {
     if (container) {
       const temp = document.createElement('div');
       temp.innerHTML = renderStars(venueId);
-      container.replaceWith(temp.firstElementChild);
+      const frag = document.createDocumentFragment();
+      while (temp.firstChild) frag.appendChild(temp.firstChild);
+      container.parentNode.querySelectorAll('.card__community-rating').forEach(el => el.remove());
+      container.replaceWith(frag);
     }
   }
 });
 
-// Hover effect for stars
+// STAR RATING EVENT HANDLERS (special-level)
+document.addEventListener('click', (e) => {
+  const star = e.target.closest('.card__special-star');
+  if (!star) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const specialId = parseInt(star.dataset.special, 10);
+  const starValue = parseInt(star.dataset.star, 10);
+  const current = getSpecialRating(specialId);
+
+  const newRating = current === starValue ? 0 : starValue;
+  saveSpecialRating(specialId, newRating);
+
+  const container = star.closest('.card__special-rate');
+  if (container) {
+    const temp = document.createElement('div');
+    temp.innerHTML = renderSpecialStars(specialId);
+    container.replaceWith(temp.firstElementChild);
+  }
+});
+
+// Hover effects for venue stars
 document.addEventListener('mouseover', (e) => {
   const star = e.target.closest('.star-rating__star');
   if (!star) return;
@@ -1424,6 +2031,28 @@ document.addEventListener('mouseout', (e) => {
   const container = star.closest('.star-rating');
   if (!container) return;
   container.querySelectorAll('.star-rating__star').forEach(s => {
+    s.classList.remove('hovered');
+  });
+});
+
+// Hover effects for special stars
+document.addEventListener('mouseover', (e) => {
+  const star = e.target.closest('.card__special-star');
+  if (!star) return;
+  const container = star.closest('.card__special-rate');
+  if (!container) return;
+  const hoverVal = parseInt(star.dataset.star, 10);
+  container.querySelectorAll('.card__special-star').forEach(s => {
+    s.classList.toggle('hovered', parseInt(s.dataset.star, 10) <= hoverVal);
+  });
+});
+
+document.addEventListener('mouseout', (e) => {
+  const star = e.target.closest('.card__special-star');
+  if (!star) return;
+  const container = star.closest('.card__special-rate');
+  if (!container) return;
+  container.querySelectorAll('.card__special-star').forEach(s => {
     s.classList.remove('hovered');
   });
 });
